@@ -36,12 +36,16 @@ kotlin {
             implementation(libs.androidx.sqlite.bundled)
         }
 
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+
         listOf(
             iosX64Main,
             iosArm64Main,
             iosSimulatorArm64Main
         ).forEach { set ->
-            getByName(set.name).kotlin.srcDir("build/generated/ksp/$set/kotlin")
+            set.kotlin.srcDir("build/generated/ksp/${set.name}/kotlin")
         }
     }
 }
