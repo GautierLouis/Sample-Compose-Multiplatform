@@ -30,8 +30,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build & Run Tests
-        run: ./gradlew build --stacktrace
+      - name: Run Tests
+        run: ./gradlew allTests --stacktrace
       - name: Upload JUnit Test Results
         if: always()
         uses: actions/upload-artifact@v4
@@ -47,31 +47,31 @@ jobs:
           path: '**/build/test-results/test/*.xml'
           reporter: java-junit
 
-  jvm-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      - run: ./gradlew jvmTest --stacktrace
-  android-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      - run: ./gradlew testDebugUnitTest --stacktrace
-  ios-tests:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      - run: ./gradlew iosSimulatorArm64Test --stacktrace
+#  jvm-tests:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-java@v4
+#        with:
+#          distribution: 'temurin'
+#          java-version: '17'
+#      - run: ./gradlew jvmTest --stacktrace
+#  android-tests:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-java@v4
+#        with:
+#          distribution: 'temurin'
+#          java-version: '17'
+#      - run: ./gradlew testDebugUnitTest --stacktrace
+#  ios-tests:
+#    runs-on: macos-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: 'temurin'
+#          java-version: '17'
+#      - run: ./gradlew iosSimulatorArm64Test --stacktrace
