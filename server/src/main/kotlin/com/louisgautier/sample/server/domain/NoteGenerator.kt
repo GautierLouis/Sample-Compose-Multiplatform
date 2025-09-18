@@ -1,8 +1,14 @@
-package com.louisgautier.sample.server
+package com.louisgautier.sample.server.domain
 
-import com.louisgautier.sample.server.database.entity.StoredNote
 import kotlinx.datetime.LocalDateTime
 
+data class StoredNote(
+    val id: Int,
+    val title: String,
+    val content: String,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime,
+)
 val notes = mutableListOf(
     StoredNote(
         1,

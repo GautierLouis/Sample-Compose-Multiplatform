@@ -1,0 +1,20 @@
+# Gradle & build
+.gradle
+build
+**/build
+
+# IDE
+.idea
+.vscode
+*.iml
+
+# Node / other
+node_modules
+dist
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local dev databases, logs
+*.log

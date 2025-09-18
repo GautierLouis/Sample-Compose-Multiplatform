@@ -7,11 +7,31 @@ plugins {
 
 group = "com.louisgautier.sample.server"
 version = "1.0.0"
+
 application {
     mainClass.set("com.louisgautier.sample.server.ApplicationKt")
     
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
+
+sourceSets {
+    main {
+        resources.srcDir("src/main/resources")
+    }
+}
+
+tasks.withType<Copy> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks {
+    // produce a fat jar without classifier so Docker picks it up easily
+    named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+        archiveBaseName.set("app")
+        archiveClassifier.set("")  // no "-all" suffix
+        archiveVersion.set("")     // optional: remove version in name
+    }
 }
 
 dependencies {
@@ -28,8 +48,24 @@ dependencies {
     implementation(libs.ktor.server.sessions)
     implementation(libs.ktor.server.auto.head.response)
     implementation(libs.ktor.server.resources)
+    implementation(libs.ktor.server.default.header)
+    implementation(libs.ktor.server.data.conversion)
     implementation(libs.ktor.server.call.id)
     implementation(libs.ktor.server.call.logging)
-    testImplementation(libs.ktor.serverTestHost)
+    implementation(libs.ktor.server.metrics.micrometer)
+    implementation(libs.ktor.server.openapi)
+    implementation(libs.ktor.server.swagger)
+    implementation(libs.ktor.server.cors)
+    implementation(libs.koin.ktor)
+    implementation(libs.koin.logger.slf4j)
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.dao)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.postgresql)
+    implementation(libs.h2)
+    implementation(libs.hikaricp)
+    implementation(libs.ehcache)
+    implementation(libs.micrometer.registery.prometheus)
+    testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.testJunit)
 }

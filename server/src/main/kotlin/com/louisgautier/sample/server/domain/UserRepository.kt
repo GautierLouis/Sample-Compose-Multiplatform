@@ -1,4 +1,4 @@
-package com.louisgautier.sample.server
+package com.louisgautier.sample.server.domain
 
 import com.louisgautier.sample.server.database.entity.StoredUser
 
