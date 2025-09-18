@@ -5,17 +5,17 @@ plugins {
     application
 }
 
-group = "com.louisgautier.sample"
+group = "com.louisgautier.sample.server"
 version = "1.0.0"
 application {
-    mainClass.set("com.louisgautier.sample.ApplicationKt")
+    mainClass.set("com.louisgautier.sample.server.ApplicationKt")
     
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
 dependencies {
-    implementation(projects.shared)
+    implementation(projects.apiContracts)
     implementation(libs.kotlinx.datetime)
     implementation(libs.logback)
     implementation(libs.ktor.server.core)
