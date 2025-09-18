@@ -62,7 +62,6 @@ dependencies {
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
     implementation(libs.postgresql)
-    implementation(libs.h2)
     implementation(libs.hikaricp)
     implementation(libs.ehcache)
     implementation(libs.micrometer.registery.prometheus)

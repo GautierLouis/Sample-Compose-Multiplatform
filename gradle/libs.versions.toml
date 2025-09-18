@@ -24,7 +24,6 @@ kermit = "2.0.8"
 mokkery = "2.10.0"
 exposed = "0.61.0"
 postgresql = "42.7.7"
-h2 = "2.2.224"
 hikaricp = "7.0.2"
 ehcache = "3.11.1"
 prometheus = "1.15.4"
@@ -78,7 +77,6 @@ exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "e
 exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
-h2 = { module = "com.h2database:h2", version.ref = "h2" }
 hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
 ehcache = { module = "org.ehcache:ehcache", version.ref = "ehcache" }
 

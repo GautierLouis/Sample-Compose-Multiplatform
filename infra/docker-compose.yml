@@ -4,14 +4,10 @@ services:
   db:
     image: postgres:15
     restart: unless-stopped
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
-      POSTGRES_DB: ${DB_NAME}
+    env_file:
+      - .env.dev
     volumes:
       - db-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"    # optional: remove in prod
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d appdb"]
       interval: 5s
@@ -37,14 +33,10 @@ services:
       context: ..                # repo root
       dockerfile: server/Dockerfile
     restart: unless-stopped
-    environment:
-      ENV: ${ENV}
-      DB_USER: ${DB_USER}
-      DB_PASS: ${DB_PASS}
-      DB_NAME: ${DB_NAME}
-      JAVA_OPTS: "-Xmx512m -Xms256m"
+    env_file:
+      - .env.dev
     ports:
-      - "8080:8080"
+      - "${PORT:-8080}:${PORT:-8080}"
     depends_on:
       - db
       - postgres-exporter

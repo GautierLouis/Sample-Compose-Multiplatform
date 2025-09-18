@@ -30,7 +30,7 @@ import org.koin.ktor.ext.inject
 
 fun Application.configureRouting() {
 
-    val jwtConfig: JwtConfig by inject()
+    val jwtBuilder: JwtBuilder by inject()
     val userRepository: UserRepository by inject()
     val noteRepository: NoteRepository by inject()
     val appMicrometerRegistry: PrometheusMeterRegistry by inject()
@@ -75,8 +75,8 @@ fun Application.configureRouting() {
                 call.respond(HttpStatusCode.Unauthorized, mapOf("error" to "Invalid credentials"))
             }
 
-            val accessToken = jwtConfig.makeAccessToken(storedUser!!)
-            val refreshToken = jwtConfig.makeRefreshToken(storedUser)
+            val accessToken = jwtBuilder.makeAccessToken(storedUser!!)
+            val refreshToken = jwtBuilder.makeRefreshToken(storedUser)
 
             call.respond(HttpStatusCode.OK, UserTokenJson(accessToken, refreshToken))
 
@@ -87,7 +87,7 @@ fun Application.configureRouting() {
 
             try {
                 val decodedJWT =
-                    jwtConfig.verifier(JwtConfig.TokenType.REFRESH).verify(oldToken.refreshToken)
+                    jwtBuilder.verifier(JwtBuilder.TokenType.REFRESH).verify(oldToken.refreshToken)
                 val userId = decodedJWT.getClaim("userId").asInt()
                 val tokenType = decodedJWT.getClaim("type").asString()
 
@@ -101,8 +101,8 @@ fun Application.configureRouting() {
                     throw Exception()
                 }
 
-                val newAccessToken = jwtConfig.makeAccessToken(user)
-                val newRefreshToken = jwtConfig.makeRefreshToken(user)
+                val newAccessToken = jwtBuilder.makeAccessToken(user)
+                val newRefreshToken = jwtBuilder.makeRefreshToken(user)
 
                 call.respond(HttpStatusCode.OK, UserTokenJson(newAccessToken, newRefreshToken))
 

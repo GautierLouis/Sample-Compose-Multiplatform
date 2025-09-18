@@ -26,7 +26,7 @@ import java.time.Duration
 
 fun Application.configureServer() {
 
-    val jwtConfig: JwtConfig by inject()
+    val jwtBuilder: JwtBuilder by inject()
     val appMicrometerRegistry: PrometheusMeterRegistry by inject()
 
     install(ContentNegotiation) {
@@ -39,7 +39,7 @@ fun Application.configureServer() {
 
     install(Authentication) {
         jwt("auth-jwt") {
-            verifier(jwtConfig.verifier(JwtConfig.TokenType.ACCESS))
+            verifier(jwtBuilder.verifier(JwtBuilder.TokenType.ACCESS))
             validate { credential ->
                 if (credential.payload.getClaim("userId").asInt() != null) {
                     JWTPrincipal(credential.payload)
