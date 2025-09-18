@@ -35,6 +35,14 @@ kotlin {
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
         }
+
+        listOf(
+            iosX64Main,
+            iosArm64Main,
+            iosSimulatorArm64Main
+        ).forEach { set ->
+            getByName(set.name).kotlin.srcDir("build/generated/ksp/$set/kotlin")
+        }
     }
 }
 
