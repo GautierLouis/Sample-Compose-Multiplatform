@@ -11,7 +11,7 @@ COPY gradlew gradlew
 COPY gradle/wrapper/ gradle/wrapper/
 
 # Now copy server folder content into the workdir
-COPY server/ .
+COPY . .
 
 # Make sure the gradlew wrapper is executable (if present)
 RUN if [ -f ./gradlew ]; then chmod +x ./gradlew; fi
