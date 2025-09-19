@@ -2,9 +2,16 @@
 FROM gradle:8.6-jdk17 AS builder
 WORKDIR /home/gradle/project
 
-# Copy entire repo into build context (docker-compose will set context to repo root)
-# Use .dockerignore in repo root to keep the context small.
-COPY server .
+# If build context is repo root, these will copy files from repo root.
+# If Railway sends only server/ as context, these will fail — so prefer repo root context.
+COPY settings.gradle.kts settings.gradle.kts
+COPY settings.gradle settings.gradle
+COPY gradle/ gradle/
+COPY gradlew gradlew
+COPY gradle/wrapper/ gradle/wrapper/
+
+# Now copy server folder content into the workdir
+COPY server/ .
 
 # Make sure the gradlew wrapper is executable (if present)
 RUN if [ -f ./gradlew ]; then chmod +x ./gradlew; fi
