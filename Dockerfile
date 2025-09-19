@@ -4,7 +4,7 @@ WORKDIR /home/gradle/project
 
 # Copy entire repo into build context (docker-compose will set context to repo root)
 # Use .dockerignore in repo root to keep the context small.
-COPY . .
+COPY server .
 
 # Make sure the gradlew wrapper is executable (if present)
 RUN if [ -f ./gradlew ]; then chmod +x ./gradlew; fi
