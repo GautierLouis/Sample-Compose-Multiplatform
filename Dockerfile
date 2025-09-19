@@ -3,7 +3,7 @@ FROM gradle:8.6-jdk17 AS builder
 WORKDIR /home/gradle/project
 
 # copy everything from repo root (ensure you run docker build from repo root)
-COPY . .
+COPY server .
 
 # (optional debug) list top-level files to verify the version-catalog and settings are present
 # RUN ls -la /home/gradle/project && ls -la /home/gradle/project/gradle || true
