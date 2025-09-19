@@ -2,16 +2,11 @@
 FROM gradle:8.6-jdk17 AS builder
 WORKDIR /home/gradle/project
 
-# If build context is repo root, these will copy files from repo root.
-# If Railway sends only server/ as context, these will fail — so prefer repo root context.
-COPY settings.gradle.kts settings.gradle.kts
-COPY settings.gradle settings.gradle
-COPY gradle/ gradle/
-COPY gradlew gradlew
-COPY gradle/wrapper/ gradle/wrapper/
-
-# Now copy server folder content into the workdir
+# copy everything from repo root (ensure you run docker build from repo root)
 COPY . .
+
+# (optional debug) list top-level files to verify the version-catalog and settings are present
+# RUN ls -la /home/gradle/project && ls -la /home/gradle/project/gradle || true
 
 # Make sure the gradlew wrapper is executable (if present)
 RUN if [ -f ./gradlew ]; then chmod +x ./gradlew; fi
