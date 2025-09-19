@@ -13,7 +13,7 @@ RUN if [ -f ./gradlew ]; then chmod +x ./gradlew; fi
 
 # Build the fat jar for the server module. Adjust task name if different.
 # We skip tests to speed up build; remove -x test if you want tests.
-RUN gradle :server:shadowJar -x test --no-daemon
+RUN ./gradlew :server:shadowJar -x test --no-daemon
 
 # Stage 2: runtime image
 FROM eclipse-temurin:17-jre
