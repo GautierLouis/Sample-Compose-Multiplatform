@@ -2,16 +2,18 @@
 FROM gradle:8.6-jdk17 AS builder
 WORKDIR /home/gradle/project
 
-# Copy entire repo into build context (docker-compose will set context to repo root)
-# Use .dockerignore in repo root to keep the context small.
+# copy everything from repo root (ensure you run docker build from repo root)
 COPY . .
+
+# (optional debug) list top-level files to verify the version-catalog and settings are present
+RUN ls -la /home/gradle/project && ls -la /home/gradle/project/gradle || true
 
 # Make sure the gradlew wrapper is executable (if present)
 RUN if [ -f ./gradlew ]; then chmod +x ./gradlew; fi
 
 # Build the fat jar for the server module. Adjust task name if different.
 # We skip tests to speed up build; remove -x test if you want tests.
-RUN gradle :server:shadowJar -x test --no-daemon
+RUN ./gradlew :server:shadowJar -x test --no-daemon
 
 # Stage 2: runtime image
 FROM eclipse-temurin:17-jre
