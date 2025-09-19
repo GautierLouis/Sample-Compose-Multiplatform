@@ -5,6 +5,8 @@ import com.louisgautier.sample.server.Environment
 import com.louisgautier.sample.server.database.entity.NoteDao
 import com.louisgautier.sample.server.database.entity.NoteTable
 import com.louisgautier.sample.server.domain.notes
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.Application
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -21,13 +23,21 @@ fun Application.configureDatabase() {
     val databaseConfig: DatabaseConfig by inject()
 
     if (environment != Environment.TEST) {
-        with(databaseConfig) {
-            if (user.isBlank()) {
-                Database.connect(url = url, driver = "org.postgresql.Driver")
-            } else {
-                Database.connect(url = url, driver = "org.postgresql.Driver", user = user, password = password)
-            }
+
+        val config = HikariConfig().apply {
+            jdbcUrl = databaseConfig.url
+            username = databaseConfig.user
+            password = databaseConfig.password
+            driverClassName = "org.postgresql.Driver"
+            maximumPoolSize = 10
+            isAutoCommit = false
+            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+            addDataSourceProperty("sslmode", "require")
         }
+
+        val ds = HikariDataSource(config)
+
+        Database.connect(ds)
 
         transaction {
             addLogger(StdOutSqlLogger)
