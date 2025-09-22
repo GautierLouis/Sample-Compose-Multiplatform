@@ -1,12 +1,9 @@
 package com.louisgautier.network
 
 import com.louisgautier.apicontracts.getPlatform
-import com.louisgautier.apicontracts.routing.Login
-import com.louisgautier.apicontracts.routing.Protected
-import com.louisgautier.apicontracts.routing.RefreshToken
-import com.louisgautier.apicontracts.routing.Unprotected
 import com.louisgautier.apicontracts.pojo.UserJson
 import com.louisgautier.apicontracts.pojo.UserTokenJson
+import com.louisgautier.apicontracts.routing.Root
 import com.louisgautier.apicontracts.routing.defaultJson
 import com.louisgautier.core.AppLogger
 import com.louisgautier.core.AppPreferences
@@ -14,9 +11,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.plugins.auth.Auth
-import io.ktor.client.plugins.auth.providers.BearerTokens
-import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -24,7 +18,6 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.client.plugins.resources.Resources
-import io.ktor.client.plugins.resources.get
 import io.ktor.client.plugins.resources.post
 import io.ktor.client.request.header
 import io.ktor.client.request.setBody
@@ -33,7 +26,6 @@ import io.ktor.http.ContentType
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
-import kotlin.apply
 
 
 class ApiClient(
@@ -43,63 +35,66 @@ class ApiClient(
 
     val unauthedClient = buildClient(engine)
     val authedClient = buildClient(engine) {
-        install(Auth) {
-            bearer {
-                loadTokens {
-                    val accessToken = preferences.getUserToken()
-                    val refreshToken = preferences.getUserRefreshToken()
-                    if (accessToken.isNullOrEmpty() || refreshToken.isNullOrEmpty()) {
-                        null // No tokens available
-                    } else {
-                        BearerTokens(accessToken, refreshToken)
-                    }
-                }
-
-                refreshTokens {
-                    val userToken = UserTokenJson(
-                        preferences.getUserToken().orEmpty(),
-                        preferences.getUserRefreshToken().orEmpty()
-                    )
-                    val newTokens = refresh(userToken)
-                    if (newTokens.isSuccess) {
-                        preferences.setUserToken(newTokens.getOrNull()!!.token)
-                        preferences.setUserRefreshToken(newTokens.getOrNull()!!.refreshToken)
-                        BearerTokens(
-                            newTokens.getOrNull()!!.token,
-                            newTokens.getOrNull()!!.refreshToken
-                        )
-                    } else {
-                        // Failed to refresh, clear tokens or trigger logout
-                        preferences.removeUserToken()
-                        null
-                    }
-                }
-            }
-        }
+//        install(Auth) {
+//            bearer {
+//                loadTokens {
+//                    val accessToken = preferences.getUserToken()
+//                    val refreshToken = preferences.getUserRefreshToken()
+//                    if (accessToken.isNullOrEmpty() || refreshToken.isNullOrEmpty()) {
+//                        null // No tokens available
+//                    } else {
+//                        BearerTokens(accessToken, refreshToken)
+//                    }
+//                }
+//
+//                refreshTokens {
+//                    val userToken = UserTokenJson(
+//                        preferences.getUserToken().orEmpty(),
+//                        preferences.getUserRefreshToken().orEmpty()
+//                    )
+//                    val newTokens = refresh(userToken)
+//                    if (newTokens.isSuccess) {
+//                        preferences.setUserToken(newTokens.getOrNull()!!.token)
+//                        preferences.setUserRefreshToken(newTokens.getOrNull()!!.refreshToken)
+//                        BearerTokens(
+//                            newTokens.getOrNull()!!.token,
+//                            newTokens.getOrNull()!!.refreshToken
+//                        )
+//                    } else {
+//                        // Failed to refresh, clear tokens or trigger logout
+//                        preferences.removeUserToken()
+//                        null
+//                    }
+//                }
+//            }
+//        }
     }
 
     suspend fun protected(): Result<String> {
-        return call<String> { authedClient.get(Protected()) }
+        return Result.failure(Throwable("Not Implemented yet"))
+//        return call<String> { authedClient.get(Protected()) }
     }
 
     suspend fun unprotected(): Result<String> {
-        return call<String> { unauthedClient.get(Unprotected()) }
+        return Result.failure(Throwable("Not Implemented yet"))
+//        return call<String> { unauthedClient.get(Unprotected()) }
     }
 
     suspend fun login(user: UserJson): Result<UserTokenJson> {
         return call<UserTokenJson> {
-            unauthedClient.post(Login()) {
+            unauthedClient.post(Root.Login()) {
                 setBody(user)
             }
         }
     }
 
     suspend fun refresh(token: UserTokenJson): Result<UserTokenJson> {
-        return call<UserTokenJson> {
-            unauthedClient.post(RefreshToken()) {
-                setBody(token)
-            }
-        }
+        return Result.failure(Throwable("Not Implemented yet"))
+//        return call<UserTokenJson> {
+//            unauthedClient.post(RefreshToken()) {
+//                setBody(token)
+//            }
+//        }
     }
 }
 

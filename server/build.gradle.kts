@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.ktor.server.openapi)
     implementation(libs.ktor.server.swagger)
     implementation(libs.ktor.server.cors)
+    implementation(libs.ktor.client.cio)
     implementation(libs.koin.ktor)
     implementation(libs.koin.logger.slf4j)
     implementation(libs.exposed.core)
@@ -64,7 +65,16 @@ dependencies {
     implementation(libs.postgresql)
     implementation(libs.hikaricp)
     implementation(libs.ehcache)
+    implementation(libs.firebase.auth)
+
+    implementation(project.dependencies.platform(libs.supabase.bom))
+    implementation(libs.supabase.auth)
+
     implementation(libs.micrometer.registery.prometheus)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.testJunit)
+    testImplementation(libs.koin.test)
+    testImplementation("io.mockk:mockk:1.14.2")
+    testImplementation("org.testcontainers:postgresql:1.19.0") // optional, integration
+    testImplementation("com.h2database:h2:2.2.222")
 }

@@ -7,25 +7,42 @@ val defaultJson = Json {
     prettyPrint = true
     isLenient = true
     ignoreUnknownKeys = true
+    allowStructuredMapKeys = true
 }
 
-@Resource("/unprotected")
-class Unprotected()
+@Resource("/")
+class Root {
 
-@Resource("/protected")
-class Protected()
+    @Resource("admin")
+    class Admin(val parent: Root = Root()) {
+        @Resource("swagger")
+        class Swagger(val parent: Admin = Admin())
 
-@Resource("/login")
-class Login()
+        @Resource("openapi")
+        class OpenAPI(val parent: Admin = Admin())
 
-@Resource("/logout")
-class Logout()
+        @Resource("metrics")
+        class Metrics(val parent: Admin = Admin())
+    }
 
-@Resource("/refresh_token")
-class RefreshToken()
+    @Resource("register")
+    class Register(val parent: Root = Root())
 
-@Resource("/notes")
-class Notes(val page: Int? = null, val limit: Int? = null) {
-    @Resource("{id}")
-    class Id(val parent: Notes = Notes(), val id: Int)
+    @Resource("register_anon")
+    class RegisterAnonymously(val parent: Root = Root())
+
+    @Resource("login")
+    class Login(val parent: Root = Root())
+
+    @Resource("/me")
+    class Me(val parent: Root = Root())
+
+    @Resource("/refresh_token")
+    class RefreshToken(val parent: Root = Root())
+
+    @Resource("notes")
+    class Notes(val parent: Root = Root(), val page: Int? = null, val limit: Int? = null) {
+        @Resource("{id}")
+        class Id(val parent: Notes = Notes(), val id: Int)
+    }
 }

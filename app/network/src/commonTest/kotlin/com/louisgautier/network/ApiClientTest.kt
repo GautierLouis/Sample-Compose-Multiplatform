@@ -31,7 +31,7 @@ class ApiClientTest {
         val client = ApiClient(mockEngine, mockPreferences)
 
         runBlocking {
-            val response: Result<UserTokenJson> = client.refresh(UserTokenJson("", ""))
+            val response: Result<UserTokenJson> = client.refresh(UserTokenJson("", "", 0L))
             assertTrue(response.isFailure)
         }
     }

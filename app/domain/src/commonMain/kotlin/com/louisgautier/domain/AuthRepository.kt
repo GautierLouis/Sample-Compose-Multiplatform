@@ -11,10 +11,11 @@ class AuthRepository(
     private val preferences: AppPreferences
 ) {
 
+
     suspend fun unprotected() = client.unprotected()
     suspend fun protected() = client.protected()
     suspend fun login(): Result<Boolean> {
-        return client.login(UserJson(1,"test", "test"))
+        return client.login(UserJson(1, "test", "test"))
             .onSuccess { (token, refresh) ->
                 preferences.setUserToken(token)
                 preferences.setUserRefreshToken(refresh)
@@ -22,8 +23,9 @@ class AuthRepository(
     }
 
     fun getUserCreds(): Flow<Pair<String, String>> {
-        return preferences.getUserTokenAsFlow().zip(preferences.getUserRefreshTokenAsFlow()) { token, refresh ->
-            Pair(token.orEmpty(), refresh.orEmpty())
-        }
+        return preferences.getUserTokenAsFlow()
+            .zip(preferences.getUserRefreshTokenAsFlow()) { token, refresh ->
+                Pair(token.orEmpty(), refresh.orEmpty())
+            }
     }
 }
