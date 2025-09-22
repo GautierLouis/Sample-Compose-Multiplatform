@@ -1,4 +1,4 @@
-package com.louisgautier.sample
+package com.louisgautier
 
 
 import com.louisgautier.domain.domainModule

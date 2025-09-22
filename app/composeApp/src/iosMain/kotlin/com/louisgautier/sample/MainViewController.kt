@@ -1,12 +1,12 @@
 package com.louisgautier.sample
 
 import androidx.compose.ui.window.ComposeUIViewController
-import com.louisgautier.sample.App
+import com.louisgautier.App
 import org.koin.compose.KoinApplication
 
 fun MainViewController() = ComposeUIViewController {
     KoinApplication(application = {
-        modules(loadModules())
+        modules(com.louisgautier.loadModules())
     }) {
         App()
     }

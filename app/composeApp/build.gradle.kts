@@ -1,35 +1,13 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.composeHotReload)
-    alias(libs.plugins.serialization)
+    id("com.louisgautier.application.convention")
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.hot.reload)
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
-    }
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
-    
-    jvm()
-    
     sourceSets {
         androidMain.dependencies {
             implementation(compose.preview)
@@ -47,8 +25,8 @@ kotlin {
             implementation(compose.materialIconsExtended)
             implementation(compose.material3AdaptiveNavigationSuite)
 
-            implementation(libs.compose.lifecycle.viewmodelCompose)
-            implementation(libs.compose.lifecycle.runtimeCompose)
+            implementation(libs.compose.lifecycle.viewmodel.compose)
+            implementation(libs.compose.lifecycle.runtime.compose)
             implementation(libs.compose.navigation.compose)
 
             implementation(libs.koin.compose)
@@ -58,41 +36,19 @@ kotlin {
 
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutinesSwing)
+            implementation(libs.kotlinx.coroutines.swing)
         }
 
         commonTest.dependencies {
-            implementation(libs.kotlin.test)
             implementation(libs.junit)
-            implementation(libs.koin.test)
         }
     }
 }
-
 android {
-    namespace = "com.louisgautier.sample"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
     defaultConfig {
         applicationId = "com.louisgautier.sample"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = true
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 

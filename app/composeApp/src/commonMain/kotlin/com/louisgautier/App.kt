@@ -1,4 +1,4 @@
-package com.louisgautier.sample
+package com.louisgautier
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
