@@ -12,7 +12,7 @@ The project is organized into several modules, each serving a distinct purpose. 
 ## Module Dependency Graph
 
 ```mermaid
-graph TD
+flowchart-elk TD
     subgraph "Platform-Specific Apps"
         A1["/iosApp (iOS App)"]
         A2["Android App (via /app/composeApp)"]
