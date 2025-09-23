@@ -2,7 +2,7 @@ package com.louisgautier.sample.server
 
 import com.louisgautier.apicontracts.dto.RegisterUserJson
 import com.louisgautier.apicontracts.dto.UserRefreshTokenJson
-import com.louisgautier.apicontracts.routing.Root
+import com.louisgautier.apicontracts.routing.EndPoint
 import com.louisgautier.sample.server.domain.AuthenticationRepository
 import com.louisgautier.sample.server.domain.NoteRepository
 import io.ktor.http.HttpStatusCode
@@ -41,13 +41,13 @@ private fun Routing.configureAuthedRoutes() {
         val noteRepository: NoteRepository by inject()
         val authenticationRepository: AuthenticationRepository by inject()
 
-        get<Root.Me> {
+        get<EndPoint.Me> {
             val principal = call.principal<JWTPrincipal>()!!
             val supabaseUserId = principal.payload.getClaim("sub").asString()
             call.respond(mapOf("user_id" to supabaseUserId))
         }
 
-        post<Root.RefreshToken> {
+        post<EndPoint.RefreshToken> {
             val creds = call.receive<UserRefreshTokenJson>()
             authenticationRepository.refreshSession(creds.refreshToken).collect {
                 it.onSuccess { data ->
@@ -59,12 +59,12 @@ private fun Routing.configureAuthedRoutes() {
             }
         }
 
-        get<Root.Notes> {
+        get<EndPoint.Notes> {
             val notes = noteRepository.getAllNotes(it.page ?: 0, it.limit ?: 100)
             call.respond(HttpStatusCode.OK, notes)
         }
 
-        get<Root.Notes.Id> {
+        get<EndPoint.Notes.Id> {
             val note = noteRepository.getNoteById(it.id)
             if (note == null) {
                 call.respond(HttpStatusCode.NotFound)
@@ -78,7 +78,7 @@ private fun Routing.configureAuthedRoutes() {
 private fun Routing.configureOpenRoutes() {
     val authenticationRepository: AuthenticationRepository by inject()
 
-    get<Root.RegisterAnonymously> {
+    get<EndPoint.RegisterAnonymously> {
         authenticationRepository.registerAnonymously().collect {
             it.onSuccess { data ->
                 call.respond(HttpStatusCode.OK, data)
@@ -89,7 +89,7 @@ private fun Routing.configureOpenRoutes() {
         }
     }
 
-    post<Root.Register> {
+    post<EndPoint.Register> {
         val creds = call.receive<RegisterUserJson>()
 
         authenticationRepository.registerWith(creds.email, creds.password).collect {
@@ -102,7 +102,7 @@ private fun Routing.configureOpenRoutes() {
         }
     }
 
-    post<Root.Login> {
+    post<EndPoint.Login> {
         val creds = call.receive<RegisterUserJson>()
 
         authenticationRepository.registerWith(creds.email, creds.password).collect {
@@ -121,7 +121,7 @@ private fun Routing.configureAdminRoutes() {
 
     swaggerUI(path = "admin/swagger")
     openAPI(path = "admin/openapi")
-    get<Root.Admin.Metrics> {
+    get<EndPoint.Admin.Metrics> {
         call.respond(appMicrometerRegistry.scrape())
     }
 }

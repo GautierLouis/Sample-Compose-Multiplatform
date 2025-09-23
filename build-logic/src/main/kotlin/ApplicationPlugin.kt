@@ -14,7 +14,6 @@ class ApplicationPlugin : Plugin<Project> {
         }
 
         extensions.configure<KotlinMultiplatformExtension>(::configureKotlinMultiplatform)
-
         extensions.configure<ApplicationExtension> {
             applySharedAndroidSettings(target)
         }

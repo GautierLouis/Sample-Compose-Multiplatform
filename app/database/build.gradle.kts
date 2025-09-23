@@ -19,7 +19,7 @@ kotlin {
         listOf(
             iosX64Main,
             iosArm64Main,
-            iosSimulatorArm64Main
+            iosSimulatorArm64Main,
         ).forEach { set ->
             set.kotlin.srcDir("build/generated/ksp/${set.name}/kotlin")
         }

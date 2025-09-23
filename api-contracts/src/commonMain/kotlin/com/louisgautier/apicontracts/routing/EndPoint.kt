@@ -3,10 +3,10 @@ package com.louisgautier.apicontracts.routing
 import io.ktor.resources.Resource
 
 @Resource("/")
-class Root {
+class EndPoint {
     @Resource("admin")
     class Admin(
-        val parent: Root = Root(),
+        val parent: EndPoint = EndPoint(),
     ) {
         @Resource("swagger")
         class Swagger(
@@ -26,32 +26,32 @@ class Root {
 
     @Resource("register")
     class Register(
-        val parent: Root = Root(),
+        val parent: EndPoint = EndPoint(),
     )
 
     @Resource("register_anon")
     class RegisterAnonymously(
-        val parent: Root = Root(),
+        val parent: EndPoint = EndPoint(),
     )
 
     @Resource("login")
     class Login(
-        val parent: Root = Root(),
+        val parent: EndPoint = EndPoint(),
     )
 
     @Resource("/me")
     class Me(
-        val parent: Root = Root(),
+        val parent: EndPoint = EndPoint(),
     )
 
     @Resource("/refresh_token")
     class RefreshToken(
-        val parent: Root = Root(),
+        val parent: EndPoint = EndPoint(),
     )
 
     @Resource("notes")
     class Notes(
-        val parent: Root = Root(),
+        val parent: EndPoint = EndPoint(),
         val page: Int? = null,
         val limit: Int? = null,
     ) {

@@ -16,7 +16,6 @@ internal fun Project.installBasePlugin() {
         apply(project.conventionLibs.findPlugin("kotlin-multiplatform").get().get().pluginId)
         apply(project.conventionLibs.findPlugin("serialization").get().get().pluginId)
         apply(project.conventionLibs.findPlugin("mokkery-plugin").get().get().pluginId)
-        apply(project.conventionLibs.findPlugin("klint").get().get().pluginId)
     }
 }
 

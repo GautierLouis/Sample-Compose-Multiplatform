@@ -2,7 +2,7 @@ package com.louisgautier.network
 
 import com.louisgautier.apicontracts.dto.UserRefreshTokenJson
 import com.louisgautier.apicontracts.dto.UserTokenJson
-import com.louisgautier.apicontracts.routing.Root
+import com.louisgautier.apicontracts.routing.EndPoint
 import com.louisgautier.network.interfaces.TokenAccessor
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.auth.Auth
@@ -36,7 +36,7 @@ internal class DefaultService(
 
                         val newTokens =
                             call<UserTokenJson> {
-                                unauthedClient.post(Root.RefreshToken()) {
+                                unauthedClient.post(EndPoint.RefreshToken()) {
                                     setBody(oldRefreshToken)
                                 }
                             }
