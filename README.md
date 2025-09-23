@@ -1,5 +1,8 @@
 # Sample - Kotlin Multiplatform Project
 
+[![CI Build Status](https://github.com/louisgautier/Sample-Compose-Multiplatform/actions/workflows/ci.yml/badge.svg)](https://github.com/louisgautier/Sample-Compose-Multiplatform/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/release/louisgautier/Sample-Compose-Multiplatform.svg?label=Version&color=blue)](https://github.com/louisgautier/Sample-Compose-Multiplatform/releases/latest)
+
 This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM), and Server. It allows for sharing code across different platforms, reducing development time and ensuring consistency.
 
 ## Project Structure & Modules
@@ -25,6 +28,7 @@ graph TD
         C["/app/core"]
         D["/app/domain"]
         N["/app/network"]
+        P["/app/platform"]
         DB["/app/database"]
         AC["/api-contracts"]
     end
@@ -35,13 +39,14 @@ graph TD
     A3 --> UI
 
     %% UI Dependencies
-    UI --> C
     UI --> D
-    UI --> N
-    UI --> DB
 
     %% Core Logic Dependencies
-    C --> D
+    D --> P
+    D --> DB
+    D --> N
+    DB --> P
+    N --> P
     N --> AC
     S --> AC
 ```
@@ -50,14 +55,17 @@ graph TD
 
 These modules contain shared logic and are compiled for multiple targets.
 
-*   **`/app/core`**
-    *   **Description:** Manages core application functionalities such as application preferences (settings using DataStore), dependency injection setups, and platform-specific utilities.
-    *   **Targets:** `commonMain`, `androidMain`, `iosMain`.
-    *   **Key Libraries:** Kotlinx DataStore, Kotlinx Coroutines.
+* **`/app/platform`**
+    * **Description:** Manages core application functionalities such as AppLogger, Context wrapper
+      and platform-specific utilities.
+    * **Targets:** `commonMain`, `androidMain`, `iosMain`, `jvmMain`.
+    * **Key Libraries:** Kermit.
 
 *   **`/app/domain`**
-    *   **Description:** Houses the core business logic, use cases, and domain models of the application. This module aims to be platform-agnostic.
-    *   **Targets:** `commonMain`.
+    * **Description:** Houses the core business logic, use cases, preferences, and domain models of
+      the application.
+    * **Targets:** `commonMain`, `androidMain`, `iosMain`, `jvmMain` (for platform-specific
+      Datastore).
     *   **Key Libraries:** Kotlin Standard Library, Kotlinx Coroutines.
 
 *   **`/app/network`**
@@ -97,6 +105,32 @@ These modules contain shared logic and are compiled for multiple targets.
     *   **Key Libraries:** Ktor Server.
 
 *(Note: The Android application is primarily built from `/app/composeApp`\'s Android target, which produces an Android library consumed by a separate Android app module or uses a default application setup if `com.android.application` plugin is applied directly in `app/composeApp`.)*
+
+## Gradle Build Logic with Convention Plugins
+
+This project leverages Gradle\'s `build-logic` module to centralize and manage build configurations
+through **convention plugins**. This approach promotes:
+
+* **Consistency:** Ensures uniform application of settings, dependencies, and plugins across similar
+  modules.
+* **Maintainability:** Simplifies updates to build configurations as changes are made in one place.
+* **Readability:** Reduces boilerplate in individual module `build.gradle.kts` files, making them
+  cleaner and focused on module-specific declarations.
+
+Convention plugins are defined as Kotlin classes plugins (e.g., `ApplicationPlugin`,
+`LibraryPlugin`) within the `/build-logic/src/main/kotlin` directory.
+
+Modules can then apply these conventions using a simple plugin ID, for example:
+
+```kotlin
+// In a module's build.gradle.kts
+plugins {
+    id("kotlin-multiplatform-convention")
+    // ... other plugins
+}
+```
+
+This setup helps in managing a complex multi-module project more efficiently.
 
 ## Understanding Source Sets (Targets)
 
@@ -164,14 +198,8 @@ This section outlines planned improvements and potential areas for future develo
 *   **Secure Data Storage on Android (SQLCipher/Room):**
     *   Investigate and implement encrypted local database storage on Android. This involves replacing the current placeholder database in the `/app/database` module with a robust solution like Room, potentially with SQLCipher for an added layer of security to protect sensitive user data.
 
-*   **Server-Side Database with Exposed:**
-    *   Transition the `/server` module from its current in-memory data storage to a persistent database solution. Kotlin Exposed is a strong candidate for managing database interactions, providing a more scalable and reliable backend.
-
 *   **Firebase Authentication (Server-Side):**
     *   Implement user authentication on the `/server` using the Firebase Admin SDK. The server will handle token verification and user management, providing a secure authentication flow for all client applications.
-
-*   **Gradle Build Logic with Convention Plugins:**
-    *   Refactor the Gradle build scripts to use convention plugins. This involves moving common build configurations (for Android, Kotlin Multiplatform, specific library types) into a `build-logic` module. This will improve build script maintainability, reduce boilerplate, and ensure consistency across project modules.
 
 *   **Koin Dependency Injection Module Verification:**
     *   Enhance testing by adding integrity checks for Koin modules. This involves writing tests (likely in `commonTest` or platform-specific test source sets) that utilize Koin\'s testing utilities to verify that all dependency graphs can be correctly resolved at runtime.

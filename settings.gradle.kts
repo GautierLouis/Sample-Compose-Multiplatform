@@ -32,10 +32,12 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+includeBuild("build-logic")
 include(":app:composeApp")
 include(":app:network")
 include(":server")
 include(":api-contracts")
 include(":app:database")
 include(":app:domain")
-include(":app:core")
+include(":app:platform")
+include(":app:preferences")

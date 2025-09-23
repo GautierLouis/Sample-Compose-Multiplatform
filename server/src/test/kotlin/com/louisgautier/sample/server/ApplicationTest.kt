@@ -1,6 +1,5 @@
 package com.louisgautier.sample.server
 
-import com.louisgautier.apicontracts.Greeting
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode

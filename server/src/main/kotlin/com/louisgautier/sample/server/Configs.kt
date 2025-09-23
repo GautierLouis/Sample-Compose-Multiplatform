@@ -12,4 +12,6 @@ data class DatabaseConfig(
     val url: String,
     val user: String,
     val password: String,
+    val poolSize: Int,
+    val sslMode: String,
 )

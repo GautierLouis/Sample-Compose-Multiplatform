@@ -1,7 +1,6 @@
 package com.louisgautier.sample.server.domain
 
-import com.louisgautier.apicontracts.pojo.NoteJson
-import com.louisgautier.sample.server.database.entity.NoteDao
+import com.louisgautier.apicontracts.dto.NoteJson
 import com.louisgautier.sample.server.database.entity.NoteTable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.LocalDateTime
