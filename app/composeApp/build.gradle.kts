@@ -48,8 +48,8 @@ kotlin {
 android {
     defaultConfig {
         applicationId = "com.louisgautier.composeApp"
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = libs.versions.app.version.code.get().toInt()
+        versionName = libs.versions.app.version.asProvider().get()
     }
 }
 
@@ -64,7 +64,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "com.louisgautier.composeApp"
-            packageVersion = "1.0.0"
+            packageVersion = libs.versions.app.version.asProvider().get()
         }
     }
 }

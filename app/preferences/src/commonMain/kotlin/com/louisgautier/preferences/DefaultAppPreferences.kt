@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.map
 internal class DefaultAppPreferences(
     private val store: DataStore<Preferences>,
 ) : AppPreferences {
-
     companion object {
         private val USER_TOKEN = stringPreferencesKey("user_token")
         private val USER_REFRESH_TOKEN = stringPreferencesKey("user_refresh_token")
@@ -29,10 +28,12 @@ internal class DefaultAppPreferences(
     }
 
     override fun getUserTokenAsFlow() = store.data.map { preferences -> preferences[USER_TOKEN] }
+
     override fun getUserRefreshTokenAsFlow() =
         store.data.map { preferences -> preferences[USER_REFRESH_TOKEN] }
 
     override suspend fun getUserToken() = getUserTokenAsFlow().firstOrNull()
+
     override suspend fun getUserRefreshToken() = getUserRefreshTokenAsFlow().firstOrNull()
 
     override suspend fun removeUserToken() {

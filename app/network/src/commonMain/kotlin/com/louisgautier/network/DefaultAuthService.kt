@@ -10,27 +10,31 @@ import io.ktor.client.plugins.resources.get
 import io.ktor.client.request.setBody
 
 internal class DefaultAuthService(
-    private val client: HttpClient
+    private val client: HttpClient,
 ) : AuthService {
-    override suspend fun registerAnon(): Result<UserTokenJson> = call {
-        client.get(Root.RegisterAnonymously())
-    }
-
-    override suspend fun register(user: UserJson): Result<UserTokenJson> = call {
-        client.get(Root.Register()) {
-            setBody(user)
+    override suspend fun registerAnon(): Result<UserTokenJson> =
+        call {
+            client.get(Root.RegisterAnonymously())
         }
-    }
 
-    override suspend fun login(user: UserJson): Result<UserTokenJson> = call {
-        client.get(Root.Login()) {
-            setBody(user)
+    override suspend fun register(user: UserJson): Result<UserTokenJson> =
+        call {
+            client.get(Root.Register()) {
+                setBody(user)
+            }
         }
-    }
 
-    override suspend fun forceRefresh(token: UserRefreshTokenJson): Result<UserTokenJson> = call {
-        client.get(Root.RefreshToken()) {
-            setBody(token)
+    override suspend fun login(user: UserJson): Result<UserTokenJson> =
+        call {
+            client.get(Root.Login()) {
+                setBody(user)
+            }
         }
-    }
+
+    override suspend fun forceRefresh(token: UserRefreshTokenJson): Result<UserTokenJson> =
+        call {
+            client.get(Root.RefreshToken()) {
+                setBody(token)
+            }
+        }
 }

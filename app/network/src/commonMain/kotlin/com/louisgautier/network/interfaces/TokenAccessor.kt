@@ -22,8 +22,12 @@ package com.louisgautier.network.interfaces
  */
 interface TokenAccessor {
     suspend fun getUserToken(): String?
+
     suspend fun getUserRefreshToken(): String?
+
     suspend fun setUserToken(token: String)
+
     suspend fun setUserRefreshToken(refreshToken: String)
+
     suspend fun removeUserToken()
 }

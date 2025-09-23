@@ -3,7 +3,6 @@ package com.louisgautier.platform
 import co.touchlab.kermit.Logger
 
 object AppLogger {
-
     fun w(
         message: String?,
         throwable: Throwable? = null,
@@ -35,5 +34,4 @@ object AppLogger {
     ) {
         Logger.d(messageString = message.orEmpty(), throwable = throwable, tag = tag)
     }
-
 }

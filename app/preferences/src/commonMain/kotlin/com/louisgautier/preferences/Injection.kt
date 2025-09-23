@@ -6,11 +6,12 @@ import okio.Path.Companion.toPath
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
-val preferencesModule = module {
-    single {
-        PreferenceDataStoreFactory.createWithPath(
-            produceFile = { getDatastoreFilePath(get<ContextWrapper>()).toPath() }
-        )
+val preferencesModule =
+    module {
+        single {
+            PreferenceDataStoreFactory.createWithPath(
+                produceFile = { getDatastoreFilePath(get<ContextWrapper>()).toPath() },
+            )
+        }
+        single { DefaultAppPreferences(get()) } bind AppPreferences::class
     }
-    single { DefaultAppPreferences(get()) } bind AppPreferences::class
-}

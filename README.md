@@ -1,5 +1,8 @@
 # Sample - Kotlin Multiplatform Project
 
+[![CI Build Status](https://github.com/louisgautier/Sample-Compose-Multiplatform/actions/workflows/ci.yml/badge.svg)](https://github.com/louisgautier/Sample-Compose-Multiplatform/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/release/louisgautier/Sample-Compose-Multiplatform.svg?label=Version&color=blue)](https://github.com/louisgautier/Sample-Compose-Multiplatform/releases/latest)
+
 This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM), and Server. It allows for sharing code across different platforms, reducing development time and ensuring consistency.
 
 ## Project Structure & Modules
@@ -102,6 +105,32 @@ These modules contain shared logic and are compiled for multiple targets.
     *   **Key Libraries:** Ktor Server.
 
 *(Note: The Android application is primarily built from `/app/composeApp`\'s Android target, which produces an Android library consumed by a separate Android app module or uses a default application setup if `com.android.application` plugin is applied directly in `app/composeApp`.)*
+
+## Gradle Build Logic with Convention Plugins
+
+This project leverages Gradle\'s `build-logic` module to centralize and manage build configurations
+through **convention plugins**. This approach promotes:
+
+* **Consistency:** Ensures uniform application of settings, dependencies, and plugins across similar
+  modules.
+* **Maintainability:** Simplifies updates to build configurations as changes are made in one place.
+* **Readability:** Reduces boilerplate in individual module `build.gradle.kts` files, making them
+  cleaner and focused on module-specific declarations.
+
+Convention plugins are defined as Kotlin classes plugins (e.g., `ApplicationPlugin`,
+`LibraryPlugin`) within the `/build-logic/src/main/kotlin` directory.
+
+Modules can then apply these conventions using a simple plugin ID, for example:
+
+```kotlin
+// In a module's build.gradle.kts
+plugins {
+    id("kotlin-multiplatform-convention")
+    // ... other plugins
+}
+```
+
+This setup helps in managing a complex multi-module project more efficiently.
 
 ## Understanding Source Sets (Targets)
 

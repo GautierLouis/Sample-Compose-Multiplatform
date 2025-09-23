@@ -19,7 +19,6 @@ data class UserRefreshTokenJson(
     val refreshToken: String,
 )
 
-
 @Serializable
 data class UserInfoJson(
     val id: String,
@@ -28,7 +27,8 @@ data class UserInfoJson(
 
 @Serializable
 enum class UserAuthMethodProvider {
-    ANONYMOUS, EMAIL
+    ANONYMOUS,
+    EMAIL,
 }
 
 @Serializable

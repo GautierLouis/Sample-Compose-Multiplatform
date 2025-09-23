@@ -21,10 +21,9 @@ import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 
-
 internal fun buildClient(
     engine: HttpClientEngine,
-    config: HttpClientConfig<*>.() -> Unit = { }
+    config: HttpClientConfig<*>.() -> Unit = { },
 ) = HttpClient(engine) {
     expectSuccess = true
     install(Resources)
@@ -47,12 +46,11 @@ internal fun buildClient(
     apply(config)
 }
 
-internal suspend inline fun <reified T> call(request: suspend () -> HttpResponse): Result<T> {
-    return try {
+internal suspend inline fun <reified T> call(request: suspend () -> HttpResponse): Result<T> =
+    try {
         val response = request()
         Result.success(response.body<T>())
     } catch (e: Exception) {
         AppLogger.e(e.message)
         Result.failure(e)
     }
-}

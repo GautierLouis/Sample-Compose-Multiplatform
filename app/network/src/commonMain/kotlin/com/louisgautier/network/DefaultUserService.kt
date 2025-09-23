@@ -7,10 +7,10 @@ import io.ktor.client.HttpClient
 import io.ktor.client.plugins.resources.get
 
 internal class DefaultUserService(
-    private val client: HttpClient
+    private val client: HttpClient,
 ) : UserService {
-    override suspend fun me(): Result<UserJson> = call {
-        client.get(Root.Me())
-    }
-
+    override suspend fun me(): Result<UserJson> =
+        call {
+            client.get(Root.Me())
+        }
 }

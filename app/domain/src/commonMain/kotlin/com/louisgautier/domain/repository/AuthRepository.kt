@@ -8,21 +8,20 @@ import kotlinx.coroutines.flow.zip
 
 class AuthRepository(
     private val client: AuthService,
-    private val preferences: AppPreferences
+    private val preferences: AppPreferences,
 ) {
-
-    suspend fun login(): Result<Boolean> {
-        return client.login(UserJson(1, "test", "test"))
+    suspend fun login(): Result<Boolean> =
+        client
+            .login(UserJson(1, "test", "test"))
             .onSuccess { (token, refresh) ->
                 preferences.setUserToken(token)
                 preferences.setUserRefreshToken(refresh)
             }.map { true }
-    }
 
-    fun getUserCreds(): Flow<Pair<String, String>> {
-        return preferences.getUserTokenAsFlow()
+    fun getUserCreds(): Flow<Pair<String, String>> =
+        preferences
+            .getUserTokenAsFlow()
             .zip(preferences.getUserRefreshTokenAsFlow()) { token, refresh ->
                 Pair(token.orEmpty(), refresh.orEmpty())
             }
-    }
 }

@@ -38,7 +38,9 @@ sealed class Navigation {
     data object LoginByPhone : Navigation()
 
     @Serializable
-    data class SendOTP(val mail: String) : Navigation()
+    data class SendOTP(
+        val mail: String,
+    ) : Navigation()
 
     @Serializable
     data object FailAuth : Navigation()
@@ -47,15 +49,13 @@ sealed class Navigation {
     data object Notes : Navigation()
 
     @Serializable
-    data class Note(val id: Long) : Navigation()
+    data class Note(
+        val id: Long,
+    ) : Navigation()
 }
 
-
 @Composable
-fun App(
-    repository: AuthRepository = koinInject()
-) {
-
+fun App(repository: AuthRepository = koinInject()) {
     MaterialTheme {
         val navController = rememberNavController()
 
@@ -88,11 +88,9 @@ fun App(
             }
 
             composable<Navigation.Notes> {
-
             }
 
             composable<Navigation.Note> {
-
             }
         }
     }
@@ -100,19 +98,17 @@ fun App(
 
 @Composable
 @Preview
-fun Home(
-    onNavigate: (Navigation) -> Unit = { }
-) {
-
+fun Home(onNavigate: (Navigation) -> Unit = { }) {
     var email by remember { mutableStateOf("louis.gautier@outlook.fr") }
 
     Scaffold(
         content = { paddingValues ->
             Box(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .padding(paddingValues)
+                        .fillMaxSize(),
+                contentAlignment = Alignment.Center,
             ) {
                 Column(
                     modifier = Modifier.padding(horizontal = 50.dp),
@@ -125,39 +121,32 @@ fun Home(
                         label = { Text("E-Mail") },
                     )
                     Button(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(4.dp)
-                            .background(
-                                color = MaterialTheme.colorScheme.primary,
-                                shape = RoundedCornerShape(4.dp)
-                            ),
-                        onClick = { onNavigate(Navigation.SendOTP("")) }
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(4.dp)
+                                .background(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    shape = RoundedCornerShape(4.dp),
+                                ),
+                        onClick = { onNavigate(Navigation.SendOTP("")) },
                     ) {
                         Text("Login")
                     }
                 }
             }
-        }
+        },
     )
 }
 
 @Composable
-fun LoginByPhone(
-    onSend: (String) -> Unit
-) {
-
+fun LoginByPhone(onSend: (String) -> Unit) {
 }
 
 @Composable
-fun VerifyPhoneOPT(
-    onNavigate: (Navigation) -> Unit
-) {
-
+fun VerifyPhoneOPT(onNavigate: (Navigation) -> Unit) {
 }
 
 @Composable
-fun FailAuth(
-    onNavigate: (Navigation) -> Unit
-) {
-
+fun FailAuth(onNavigate: (Navigation) -> Unit) {
 }

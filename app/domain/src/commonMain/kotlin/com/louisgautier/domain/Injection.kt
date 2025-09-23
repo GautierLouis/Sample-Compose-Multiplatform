@@ -10,9 +10,10 @@ import com.louisgautier.preferences.preferencesModule
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
-val domainModule = module {
-    includes(networkModule, databaseModule, platformModule, preferencesModule)
+val domainModule =
+    module {
+        includes(networkModule, databaseModule, platformModule, preferencesModule)
 
-    single { AuthRepository(get(), get()) }
-    single { DefaultTokenAccessor(get()) } bind TokenAccessor::class
-}
+        single { AuthRepository(get(), get()) }
+        single { DefaultTokenAccessor(get()) } bind TokenAccessor::class
+    }

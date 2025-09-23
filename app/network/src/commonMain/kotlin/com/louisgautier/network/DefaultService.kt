@@ -16,43 +16,45 @@ internal class DefaultService(
     tokenAccessor: TokenAccessor,
 ) {
     val unauthedClient = buildClient(engine)
-    val authedClient = buildClient(engine) {
-        install(Auth) {
-            bearer {
-                loadTokens {
-                    val accessToken = tokenAccessor.getUserToken()
-                    val refreshToken = tokenAccessor.getUserRefreshToken()
-                    if (accessToken.isNullOrEmpty() || refreshToken.isNullOrEmpty()) {
-                        null // No tokens available
-                    } else {
-                        BearerTokens(accessToken, refreshToken)
-                    }
-                }
-
-                refreshTokens {
-                    val oldRefreshToken =
-                        UserRefreshTokenJson(tokenAccessor.getUserRefreshToken().orEmpty())
-
-                    val newTokens = call<UserTokenJson> {
-                        unauthedClient.post(Root.RefreshToken()) {
-                            setBody(oldRefreshToken)
+    val authedClient =
+        buildClient(engine) {
+            install(Auth) {
+                bearer {
+                    loadTokens {
+                        val accessToken = tokenAccessor.getUserToken()
+                        val refreshToken = tokenAccessor.getUserRefreshToken()
+                        if (accessToken.isNullOrEmpty() || refreshToken.isNullOrEmpty()) {
+                            null // No tokens available
+                        } else {
+                            BearerTokens(accessToken, refreshToken)
                         }
                     }
 
-                    if (newTokens.isSuccess) {
-                        tokenAccessor.setUserToken(newTokens.getOrNull()!!.accessToken)
-                        tokenAccessor.setUserRefreshToken(newTokens.getOrNull()!!.refreshToken)
-                        BearerTokens(
-                            newTokens.getOrNull()!!.accessToken,
-                            newTokens.getOrNull()!!.refreshToken
-                        )
-                    } else {
-                        // Failed to refresh, clear tokens or trigger logout
-                        tokenAccessor.removeUserToken()
-                        null
+                    refreshTokens {
+                        val oldRefreshToken =
+                            UserRefreshTokenJson(tokenAccessor.getUserRefreshToken().orEmpty())
+
+                        val newTokens =
+                            call<UserTokenJson> {
+                                unauthedClient.post(Root.RefreshToken()) {
+                                    setBody(oldRefreshToken)
+                                }
+                            }
+
+                        if (newTokens.isSuccess) {
+                            tokenAccessor.setUserToken(newTokens.getOrNull()!!.accessToken)
+                            tokenAccessor.setUserRefreshToken(newTokens.getOrNull()!!.refreshToken)
+                            BearerTokens(
+                                newTokens.getOrNull()!!.accessToken,
+                                newTokens.getOrNull()!!.refreshToken,
+                            )
+                        } else {
+                            // Failed to refresh, clear tokens or trigger logout
+                            tokenAccessor.removeUserToken()
+                            null
+                        }
                     }
                 }
             }
         }
-    }
 }

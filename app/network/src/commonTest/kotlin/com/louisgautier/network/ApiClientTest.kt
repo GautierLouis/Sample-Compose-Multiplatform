@@ -20,18 +20,17 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class ApiClientTest {
-
     private val mockTokenAccessor = mock<TokenAccessor>(MockMode.autofill)
 
     @Test
     fun `assert that call function is catching malformed response properly`() {
-
-        val mockEngine = MockEngine { request ->
-            respond(
-                content = "",
-                status = HttpStatusCode.OK,
-            )
-        }
+        val mockEngine =
+            MockEngine { request ->
+                respond(
+                    content = "",
+                    status = HttpStatusCode.OK,
+                )
+            }
 
         val client = DefaultService(mockEngine, mockTokenAccessor)
         val service = DefaultAuthService(client.unauthedClient)
@@ -44,13 +43,13 @@ class ApiClientTest {
 
     @Test
     fun `assert that call function is catching response != 2xx properly`() {
-
-        val mockEngine = MockEngine { request ->
-            respond(
-                content = "",
-                status = HttpStatusCode.Unauthorized,
-            )
-        }
+        val mockEngine =
+            MockEngine { request ->
+                respond(
+                    content = "",
+                    status = HttpStatusCode.Unauthorized,
+                )
+            }
 
         val client = DefaultService(mockEngine, mockTokenAccessor)
         val service = DefaultAuthService(client.unauthedClient)
@@ -63,15 +62,14 @@ class ApiClientTest {
 
     @Test
     fun `assert that call function is catching response == 2xx properly`() {
-
-
-        val mockEngine = MockEngine { request ->
-            respond(
-                content = ByteReadChannel(Json.encodeToString(UserTokenJson("", "", 0L))),
-                status = HttpStatusCode.OK,
-                headers = headersOf(HttpHeaders.ContentType, "application/json")
-            )
-        }
+        val mockEngine =
+            MockEngine { request ->
+                respond(
+                    content = ByteReadChannel(Json.encodeToString(UserTokenJson("", "", 0L))),
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                )
+            }
 
         val client = DefaultService(mockEngine, mockTokenAccessor)
         val service = DefaultAuthService(client.unauthedClient)
@@ -84,10 +82,10 @@ class ApiClientTest {
 
     @Test
     fun `assert that call function is catching timeout properly`() {
-
-        val mockEngine = MockEngine { request ->
-            throw HttpRequestTimeoutException(request.url.toString(), 1000)
-        }
+        val mockEngine =
+            MockEngine { request ->
+                throw HttpRequestTimeoutException(request.url.toString(), 1000)
+            }
 
         val client = DefaultService(mockEngine, mockTokenAccessor)
         val service = DefaultAuthService(client.unauthedClient)
@@ -100,13 +98,13 @@ class ApiClientTest {
 
     @Test
     fun `assert that token is send properly`() {
-
-        val mockEngine = MockEngine { request ->
-            respond(
-                content = "",
-                status = HttpStatusCode.OK,
-            )
-        }
+        val mockEngine =
+            MockEngine { request ->
+                respond(
+                    content = "",
+                    status = HttpStatusCode.OK,
+                )
+            }
 
         everySuspend { mockTokenAccessor.getUserToken() } returns "token"
         everySuspend { mockTokenAccessor.getUserRefreshToken() } returns "refresh_token"

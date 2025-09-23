@@ -4,15 +4,11 @@ import com.louisgautier.network.interfaces.TokenAccessor
 import com.louisgautier.preferences.AppPreferences
 
 class DefaultTokenAccessor(
-    private val appPreferences: AppPreferences
+    private val appPreferences: AppPreferences,
 ) : TokenAccessor {
-    override suspend fun getUserToken(): String? {
-        return appPreferences.getUserToken()
-    }
+    override suspend fun getUserToken(): String? = appPreferences.getUserToken()
 
-    override suspend fun getUserRefreshToken(): String? {
-        return appPreferences.getUserRefreshToken()
-    }
+    override suspend fun getUserRefreshToken(): String? = appPreferences.getUserRefreshToken()
 
     override suspend fun setUserToken(token: String) {
         appPreferences.setUserToken(token)
