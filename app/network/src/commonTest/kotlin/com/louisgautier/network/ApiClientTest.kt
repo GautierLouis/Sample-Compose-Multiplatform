@@ -1,7 +1,7 @@
 package com.louisgautier.network
 
-import com.louisgautier.apicontracts.pojo.UserRefreshTokenJson
-import com.louisgautier.apicontracts.pojo.UserTokenJson
+import com.louisgautier.apicontracts.dto.UserRefreshTokenJson
+import com.louisgautier.apicontracts.dto.UserTokenJson
 import com.louisgautier.network.interfaces.TokenAccessor
 import dev.mokkery.MockMode
 import dev.mokkery.answering.returns

@@ -1,7 +1,7 @@
 package com.louisgautier.network
 
-import com.louisgautier.apicontracts.pojo.UserRefreshTokenJson
-import com.louisgautier.apicontracts.pojo.UserTokenJson
+import com.louisgautier.apicontracts.dto.UserRefreshTokenJson
+import com.louisgautier.apicontracts.dto.UserTokenJson
 import com.louisgautier.apicontracts.routing.Root
 import com.louisgautier.network.interfaces.TokenAccessor
 import io.ktor.client.engine.HttpClientEngine
@@ -11,7 +11,7 @@ import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.resources.post
 import io.ktor.client.request.setBody
 
-class DefaultService(
+internal class DefaultService(
     engine: HttpClientEngine = engineFactory.create(),
     tokenAccessor: TokenAccessor,
 ) {

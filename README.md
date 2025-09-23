@@ -25,6 +25,7 @@ graph TD
         C["/app/core"]
         D["/app/domain"]
         N["/app/network"]
+        P["/app/platform"]
         DB["/app/database"]
         AC["/api-contracts"]
     end
@@ -38,8 +39,11 @@ graph TD
     UI --> D
 
     %% Core Logic Dependencies
+    D --> P
     D --> DB
     D --> N
+    DB --> P
+    N --> P
     N --> AC
     S --> AC
 ```
@@ -48,14 +52,17 @@ graph TD
 
 These modules contain shared logic and are compiled for multiple targets.
 
-*   **`/app/core`**
-    *   **Description:** Manages core application functionalities such as application preferences (settings using DataStore), dependency injection setups, and platform-specific utilities.
-    *   **Targets:** `commonMain`, `androidMain`, `iosMain`.
-    *   **Key Libraries:** Kotlinx DataStore, Kotlinx Coroutines.
+* **`/app/platform`**
+    * **Description:** Manages core application functionalities such as AppLogger, Context wrapper
+      and platform-specific utilities.
+    * **Targets:** `commonMain`, `androidMain`, `iosMain`, `jvmMain`.
+    * **Key Libraries:** Kermit.
 
 *   **`/app/domain`**
-    *   **Description:** Houses the core business logic, use cases, and domain models of the application. This module aims to be platform-agnostic.
-    *   **Targets:** `commonMain`.
+    * **Description:** Houses the core business logic, use cases, preferences, and domain models of
+      the application.
+    * **Targets:** `commonMain`, `androidMain`, `iosMain`, `jvmMain` (for platform-specific
+      Datastore).
     *   **Key Libraries:** Kotlin Standard Library, Kotlinx Coroutines.
 
 *   **`/app/network`**
@@ -162,14 +169,8 @@ This section outlines planned improvements and potential areas for future develo
 *   **Secure Data Storage on Android (SQLCipher/Room):**
     *   Investigate and implement encrypted local database storage on Android. This involves replacing the current placeholder database in the `/app/database` module with a robust solution like Room, potentially with SQLCipher for an added layer of security to protect sensitive user data.
 
-*   **Server-Side Database with Exposed:**
-    *   Transition the `/server` module from its current in-memory data storage to a persistent database solution. Kotlin Exposed is a strong candidate for managing database interactions, providing a more scalable and reliable backend.
-
 *   **Firebase Authentication (Server-Side):**
     *   Implement user authentication on the `/server` using the Firebase Admin SDK. The server will handle token verification and user management, providing a secure authentication flow for all client applications.
-
-*   **Gradle Build Logic with Convention Plugins:**
-    *   Refactor the Gradle build scripts to use convention plugins. This involves moving common build configurations (for Android, Kotlin Multiplatform, specific library types) into a `build-logic` module. This will improve build script maintainability, reduce boilerplate, and ensure consistency across project modules.
 
 *   **Koin Dependency Injection Module Verification:**
     *   Enhance testing by adding integrity checks for Koin modules. This involves writing tests (likely in `commonTest` or platform-specific test source sets) that utilize Koin\'s testing utilities to verify that all dependency graphs can be correctly resolved at runtime.

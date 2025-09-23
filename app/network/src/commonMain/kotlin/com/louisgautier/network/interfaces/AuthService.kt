@@ -1,8 +1,8 @@
 package com.louisgautier.network.interfaces
 
-import com.louisgautier.apicontracts.pojo.UserJson
-import com.louisgautier.apicontracts.pojo.UserRefreshTokenJson
-import com.louisgautier.apicontracts.pojo.UserTokenJson
+import com.louisgautier.apicontracts.dto.UserJson
+import com.louisgautier.apicontracts.dto.UserRefreshTokenJson
+import com.louisgautier.apicontracts.dto.UserTokenJson
 
 interface AuthService {
     suspend fun registerAnon(): Result<UserTokenJson>

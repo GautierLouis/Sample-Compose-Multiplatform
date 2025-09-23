@@ -7,9 +7,8 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(projects.app.platform)
-                implementation(projects.app.network)
-                implementation(projects.app.database)
-                implementation(projects.app.preferences)
+                implementation(libs.androidx.datastore)
+                implementation(libs.androidx.datastore.preferences)
             }
         }
     }

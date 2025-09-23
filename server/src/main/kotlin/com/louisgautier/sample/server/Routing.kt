@@ -1,7 +1,7 @@
 package com.louisgautier.sample.server
 
-import com.louisgautier.apicontracts.pojo.RegisterUserJson
-import com.louisgautier.apicontracts.pojo.UserRefreshTokenJson
+import com.louisgautier.apicontracts.dto.RegisterUserJson
+import com.louisgautier.apicontracts.dto.UserRefreshTokenJson
 import com.louisgautier.apicontracts.routing.Root
 import com.louisgautier.sample.server.domain.AuthenticationRepository
 import com.louisgautier.sample.server.domain.NoteRepository

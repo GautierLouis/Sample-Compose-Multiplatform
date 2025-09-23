@@ -1,9 +1,9 @@
 package com.louisgautier.sample.server.domain
 
-import com.louisgautier.apicontracts.pojo.UserAuthMethodProvider
-import com.louisgautier.apicontracts.pojo.UserInfoJson
-import com.louisgautier.apicontracts.pojo.UserRegistrationResponseJson
-import com.louisgautier.apicontracts.pojo.UserTokenJson
+import com.louisgautier.apicontracts.dto.UserAuthMethodProvider
+import com.louisgautier.apicontracts.dto.UserInfoJson
+import com.louisgautier.apicontracts.dto.UserRegistrationResponseJson
+import com.louisgautier.apicontracts.dto.UserTokenJson
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.builtin.Email

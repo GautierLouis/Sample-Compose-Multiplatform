@@ -1,8 +1,8 @@
 package com.louisgautier.domain.repository
 
-import com.louisgautier.apicontracts.pojo.UserJson
-import com.louisgautier.domain.interfaces.AppPreferences
+import com.louisgautier.apicontracts.dto.UserJson
 import com.louisgautier.network.interfaces.AuthService
+import com.louisgautier.preferences.AppPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.zip
 

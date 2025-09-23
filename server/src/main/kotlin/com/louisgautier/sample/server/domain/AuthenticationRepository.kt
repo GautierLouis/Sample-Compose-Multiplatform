@@ -1,6 +1,6 @@
 package com.louisgautier.sample.server.domain
 
-import com.louisgautier.apicontracts.pojo.UserRegistrationResponseJson
+import com.louisgautier.apicontracts.dto.UserRegistrationResponseJson
 import kotlinx.coroutines.flow.Flow
 
 internal interface AuthenticationRepository {

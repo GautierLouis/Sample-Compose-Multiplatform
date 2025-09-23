@@ -1,12 +1,9 @@
 package com.louisgautier.sample.server.database.entity
 
-import com.louisgautier.apicontracts.pojo.NoteJson
-import kotlinx.datetime.LocalDateTime
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
-import org.jetbrains.exposed.sql.ResultRow
 
 object NoteTable : IntIdTable("note") {
     val title = varchar("title", 50)

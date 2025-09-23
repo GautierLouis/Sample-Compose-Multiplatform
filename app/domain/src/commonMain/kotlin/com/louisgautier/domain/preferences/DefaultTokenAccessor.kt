@@ -1,7 +1,7 @@
 package com.louisgautier.domain.preferences
 
-import com.louisgautier.domain.interfaces.AppPreferences
 import com.louisgautier.network.interfaces.TokenAccessor
+import com.louisgautier.preferences.AppPreferences
 
 class DefaultTokenAccessor(
     private val appPreferences: AppPreferences
