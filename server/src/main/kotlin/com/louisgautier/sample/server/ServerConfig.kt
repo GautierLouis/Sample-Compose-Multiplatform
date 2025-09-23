@@ -1,6 +1,6 @@
 package com.louisgautier.sample.server
 
-import com.louisgautier.apicontracts.routing.defaultJson
+import com.louisgautier.apicontracts.defaultJson
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
