@@ -25,12 +25,12 @@ graph TD
     end
 
     subgraph "Shared Core & Data Logic"
-        C["/app/core"]
         D["/app/domain"]
         N["/app/network"]
         P["/app/platform"]
         DB["/app/database"]
         AC["/api-contracts"]
+        PR["/app/preferences"]
     end
 
     %% Application Dependencies
@@ -42,7 +42,7 @@ graph TD
     UI --> D
 
     %% Core Logic Dependencies
-    D --> P
+    D --> PR
     D --> DB
     D --> N
     DB --> P
