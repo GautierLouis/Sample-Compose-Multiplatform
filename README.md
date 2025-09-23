@@ -35,13 +35,14 @@ graph TD
     A3 --> UI
 
     %% UI Dependencies
-    UI --> C
     UI --> D
-    UI --> N
-    UI --> DB
 
     %% Core Logic Dependencies
-    C --> D
+    D --> DB
+    D --> N
+    D --> C
+    DB --> C
+    N --> C
     N --> AC
     S --> AC
 ```
