@@ -1,14 +1,6 @@
 package com.louisgautier.apicontracts.routing
 
 import io.ktor.resources.Resource
-import kotlinx.serialization.json.Json
-
-val defaultJson = Json {
-    prettyPrint = true
-    isLenient = true
-    ignoreUnknownKeys = true
-    allowStructuredMapKeys = true
-}
 
 @Resource("/")
 class Root {

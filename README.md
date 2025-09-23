@@ -40,9 +40,6 @@ graph TD
     %% Core Logic Dependencies
     D --> DB
     D --> N
-    D --> C
-    DB --> C
-    N --> C
     N --> AC
     S --> AC
 ```

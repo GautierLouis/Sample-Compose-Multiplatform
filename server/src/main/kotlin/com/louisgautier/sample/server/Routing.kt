@@ -1,6 +1,5 @@
 package com.louisgautier.sample.server
 
-import com.louisgautier.apicontracts.Greeting
 import com.louisgautier.apicontracts.pojo.RegisterUserJson
 import com.louisgautier.apicontracts.pojo.UserRefreshTokenJson
 import com.louisgautier.apicontracts.routing.Root
@@ -32,7 +31,7 @@ fun Application.configureRouting() {
         configureAuthedRoutes()
 
         get("/") {
-            call.respondText("Ktor: ${Greeting().greet()}")
+            call.respondText("Ktor")
         }
     }
 }

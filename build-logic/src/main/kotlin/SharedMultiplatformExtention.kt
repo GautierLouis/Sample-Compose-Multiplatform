@@ -44,19 +44,18 @@ internal fun Project.configureKotlinMultiplatform(
 
     sourceSets.apply {
         commonMain.dependencies {
-            implementation(project.libs.findLibrary("kermit").get())
-            implementation(project.libs.findLibrary("koin-core").get())
-            implementation(project.libs.findLibrary("kotlinx-datetime").get())
-            implementation(project.libs.findLibrary("kotlinx-coroutines-core").get())
+            implementation(conventionLibs.findLibrary("koin-core").get())
+            implementation(conventionLibs.findLibrary("kotlinx-datetime").get())
+            implementation(conventionLibs.findLibrary("kotlinx-coroutines-core").get())
         }
 
         commonTest.dependencies {
-            implementation(project.libs.findLibrary("kotlin-test").get())
-            implementation(project.libs.findLibrary("koin-test").get())
+            implementation(conventionLibs.findLibrary("kotlin-test").get())
+            implementation(conventionLibs.findLibrary("koin-test").get())
         }
 
         androidMain.dependencies {
-            implementation(project.libs.findLibrary("koin-android").get())
+            implementation(conventionLibs.findLibrary("koin-android").get())
         }
     }
 }

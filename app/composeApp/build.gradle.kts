@@ -14,6 +14,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
+            implementation(projects.app.platform)
             implementation(projects.app.domain)
 
             implementation(compose.runtime)
@@ -46,7 +47,7 @@ kotlin {
 }
 android {
     defaultConfig {
-        applicationId = "com.louisgautier.sample"
+        applicationId = "com.louisgautier.composeApp"
         versionCode = 1
         versionName = "1.0"
     }
@@ -58,11 +59,11 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "com.louisgautier.sample.MainKt"
+        mainClass = "com.louisgautier.composeApp.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.louisgautier.sample"
+            packageName = "com.louisgautier.composeApp"
             packageVersion = "1.0.0"
         }
     }

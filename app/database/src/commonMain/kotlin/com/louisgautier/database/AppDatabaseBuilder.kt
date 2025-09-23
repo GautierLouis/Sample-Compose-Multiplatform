@@ -2,7 +2,7 @@ package com.louisgautier.database
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import com.louisgautier.core.ContextWrapper
+import com.louisgautier.platform.ContextWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 

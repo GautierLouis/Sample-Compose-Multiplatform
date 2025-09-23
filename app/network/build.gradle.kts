@@ -6,8 +6,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(projects.app.platform)
                 api(projects.apiContracts)
-                implementation(projects.app.core)
 
                 implementation(libs.ktor.client.logging)
                 implementation(libs.ktor.client.core)

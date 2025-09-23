@@ -10,7 +10,7 @@ class LibraryPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         with(pluginManager) {
             installBasePlugin()
-            apply(libs.findPlugin("android-library").get().get().pluginId)
+            apply(project.conventionLibs.findPlugin("android-library").get().get().pluginId)
         }
 
         extensions.configure<KotlinMultiplatformExtension>(::configureKotlinMultiplatform)
