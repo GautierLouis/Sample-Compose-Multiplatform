@@ -18,6 +18,6 @@ class ApplicationTest {
 
         val response = client.get("/")
         assertEquals(HttpStatusCode.Companion.OK, response.status)
-        assertEquals("Ktor: ${Greeting().greet()}", response.bodyAsText())
+        assertEquals("Ktor", response.bodyAsText())
     }
 }
