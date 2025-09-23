@@ -32,12 +32,21 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+//Convention (shared gradle configuration)
 includeBuild("build-logic")
-include(":app:composeApp")
-include(":app:network")
+//App
+include(":client:composeApp")
+//Feature
+include(":client:feature:biometric")
+include(":client:feature:login")
+//Domain
+include(":client:domain")
+//Data
+include(":client:data:network")
+include(":client:data:database")
+include(":client:data:platform")
+include(":client:data:preferences")
+//Server
 include(":server")
+//Shared (client - server)
 include(":api-contracts")
-include(":app:database")
-include(":app:domain")
-include(":app:platform")
-include(":app:preferences")

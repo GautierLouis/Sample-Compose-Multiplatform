@@ -14,41 +14,43 @@ The project is organized into several modules, each serving a distinct purpose. 
 ```mermaid
 flowchart-elk TD
     subgraph "Platform-Specific Apps"
-        A1["/iosApp (iOS App)"]
-        A2["Android App (via /app/composeApp)"]
-        A3["Desktop App (via /app/composeApp)"]
+        A["/client (Client App)"]
         S["/server (Server App)"]
     end
 
-    subgraph "Shared UI"
-        UI["/app/composeApp"]
+    subgraph "Shared UI (Android, iOS, Desktop)"
+        UI["/client/composeApp"]
     end
-
+    subgraph Feature Based Modules
+        FBM["/client/feature/biometric"]
+        FL["/client/feature/login"]
+    end
+    subgraph Domain
+        D["/client/domain"]
+    end
     subgraph "Shared Core & Data Logic"
-        D["/app/domain"]
-        N["/app/network"]
-        P["/app/platform"]
-        DB["/app/database"]
+        PR["/client/data/preferences"]
+        N["/client/data/network"]
+        P["/client/data/platform"]
+        DB["/client/data/database"]
         AC["/api-contracts"]
-        PR["/app/preferences"]
     end
 
-    %% Application Dependencies
-    A1 --> UI
-    A2 --> UI
-    A3 --> UI
-
-    %% UI Dependencies
-    UI --> D
-
-    %% Core Logic Dependencies
+%% Application Dependencies
+    A --> UI
+    S --> AC
+%% UI Dependencies
+    UI --> FBM
+    UI --> FL
+%% Feature Dependencies
+    FL --> D
+%% Core Logic Dependencies
     D --> PR
     D --> DB
     D --> N
     DB --> P
     N --> P
     N --> AC
-    S --> AC
 ```
 
 ### Core Modules (Multiplatform)

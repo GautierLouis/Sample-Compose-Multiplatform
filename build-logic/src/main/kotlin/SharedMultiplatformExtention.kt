@@ -41,7 +41,6 @@ internal fun Project.configureKotlinMultiplatform(
     jvm()
 
     applyDefaultHierarchyTemplate()
-
     sourceSets.apply {
         commonMain.dependencies {
             implementation(conventionLibs.findLibrary("koin-core").get())
