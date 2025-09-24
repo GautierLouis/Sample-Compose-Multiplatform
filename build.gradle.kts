@@ -14,4 +14,7 @@ plugins {
     alias(libs.plugins.mokkery.plugin) apply false
     alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.android.lint) apply false
+
+    alias(libs.plugins.library.convention) apply false
+    alias(libs.plugins.application.convention) apply false
 }

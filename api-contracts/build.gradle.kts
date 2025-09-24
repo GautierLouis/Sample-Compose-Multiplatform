@@ -1,5 +1,5 @@
 plugins {
-    id("com.louisgautier.library.convention")
+    alias(libs.plugins.library.convention)
 }
 
 kotlin {

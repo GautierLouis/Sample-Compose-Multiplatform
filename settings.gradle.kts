@@ -2,6 +2,7 @@ rootProject.name = "Sample"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             mavenContent {
@@ -32,8 +33,6 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-//Convention (shared gradle configuration)
-includeBuild("build-logic")
 //App
 include(":client:composeApp")
 //Feature

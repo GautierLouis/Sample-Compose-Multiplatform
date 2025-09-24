@@ -9,8 +9,8 @@ class ApplicationPlugin : Plugin<Project> {
 
     override fun apply(target: Project): Unit = with(target) {
         with(pluginManager) {
-            installBasePlugin()
-            apply(project.conventionLibs.findPlugin("android-application").get().get().pluginId)
+            configureBasePlugin()
+            apply(project.libs.plugins.android.application.get().pluginId)
         }
 
         extensions.configure<KotlinMultiplatformExtension>(::configureKotlinMultiplatform)

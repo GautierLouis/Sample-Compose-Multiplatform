@@ -1,3 +1,6 @@
+import org.gradle.initialization.DependenciesAccessors
+import org.gradle.kotlin.dsl.support.serviceOf
+
 plugins {
     `kotlin-dsl`
 }
@@ -8,19 +11,19 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.android.tools.build:gradle:8.13.0")
-    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20")
-    compileOnly("org.jetbrains.compose:org.jetbrains.compose.gradle.plugin:1.8.2")
+    compileOnly(files(gradle.serviceOf<DependenciesAccessors>().classes.asFiles))
+    compileOnly(libs.android.gradle.get())
+    compileOnly(libs.kotlin.gradle.get())
 }
 
 gradlePlugin {
     plugins {
         register("kotlinMultiplatformApplication") {
-            id = "com.louisgautier.application.convention"
+            id = libs.plugins.application.convention.get().pluginId
             implementationClass = "ApplicationPlugin"
         }
         register("kotlinMultiplatformLibrary") {
-            id = "com.louisgautier.library.convention"
+            id = libs.plugins.library.convention.get().pluginId
             implementationClass = "LibraryPlugin"
         }
     }

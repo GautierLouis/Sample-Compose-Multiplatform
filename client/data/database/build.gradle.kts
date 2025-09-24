@@ -1,5 +1,5 @@
 plugins {
-    id("com.louisgautier.library.convention")
+    alias(libs.plugins.library.convention)
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room)
 }
@@ -37,4 +37,6 @@ dependencies {
     add("kspIosX64", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)
     add("kspJvm", libs.androidx.room.compiler)
+    add("kspMacosArm64", libs.androidx.room.compiler)
+    add("kspMacosX64", libs.androidx.room.compiler)
 }

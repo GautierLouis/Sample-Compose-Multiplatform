@@ -4,4 +4,4 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 actual val biometricModule: Module =
-    module { }
+    module { single { BiometricAuthenticator() } }

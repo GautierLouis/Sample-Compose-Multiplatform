@@ -1,5 +1,5 @@
 plugins {
-    id("com.louisgautier.library.convention")
+    alias(libs.plugins.library.convention)
 }
 
 kotlin {
@@ -22,7 +22,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
 
-        iosMain.dependencies {
+        appleMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
 
