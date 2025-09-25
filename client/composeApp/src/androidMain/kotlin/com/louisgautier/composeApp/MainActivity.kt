@@ -8,8 +8,8 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
-import com.louisgautier.platform.IntentActivityResultObserver
-import com.louisgautier.platform.PermissionActivityResultObserver
+import com.louisgautier.utils.IntentActivityResultObserver
+import com.louisgautier.utils.PermissionActivityResultObserver
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

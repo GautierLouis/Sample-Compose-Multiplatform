@@ -5,7 +5,7 @@ plugins {
 kotlin {
     sourceSets {
         androidMain.dependencies {
-            implementation(projects.client.data.platform)
+            implementation(projects.client.core.utils)
             implementation(libs.androidx.biometeric)
         }
     }

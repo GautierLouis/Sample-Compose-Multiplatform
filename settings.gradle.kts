@@ -33,6 +33,10 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+//Server
+include(":server")
+//Shared (client - server)
+include(":api-contracts")
 //App
 include(":client:composeApp")
 //Feature
@@ -42,11 +46,13 @@ include(":client:feature:gallery")
 //Domain
 include(":client:domain")
 //Data
+include(":client:data")
 include(":client:data:network")
 include(":client:data:database")
 include(":client:data:platform")
 include(":client:data:preferences")
-//Server
-include(":server")
-//Shared (client - server)
-include(":api-contracts")
+//Core
+include(":client:core")
+include(":client:core:logger")
+include(":client:core:utils")
+include(":client:core:permission")

@@ -6,6 +6,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(projects.client.core.logger)
                 implementation(projects.client.data.platform)
                 api(projects.apiContracts)
 

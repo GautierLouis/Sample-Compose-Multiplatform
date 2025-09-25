@@ -5,7 +5,8 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.client.domain)
+            implementation(projects.client.core.permission)
+            implementation(projects.client.core.logger)
         }
     }
 }

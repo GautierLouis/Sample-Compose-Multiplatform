@@ -1,6 +1,6 @@
 package com.louisgautier.preferences
 
-import com.louisgautier.platform.ContextWrapper
+import com.louisgautier.utils.context.ContextWrapper
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager

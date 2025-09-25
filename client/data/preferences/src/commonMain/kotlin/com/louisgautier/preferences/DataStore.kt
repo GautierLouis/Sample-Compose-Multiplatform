@@ -1,6 +1,6 @@
 package com.louisgautier.preferences
 
-import com.louisgautier.platform.ContextWrapper
+import com.louisgautier.utils.context.ContextWrapper
 
 internal const val dataStoreFileName = "dice.preferences_pb"
 

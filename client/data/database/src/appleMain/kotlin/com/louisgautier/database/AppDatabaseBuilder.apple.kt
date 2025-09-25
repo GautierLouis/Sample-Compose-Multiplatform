@@ -2,7 +2,7 @@ package com.louisgautier.database
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.louisgautier.platform.ContextWrapper
+import com.louisgautier.utils.context.ContextWrapper
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager

@@ -13,13 +13,14 @@ import androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.louisgautier.platform.ContextWrapper
-import com.louisgautier.platform.IntentActivityResultObserver
+import com.louisgautier.utils.AppScope
+import com.louisgautier.utils.IntentActivityResultObserver
+import com.louisgautier.utils.context.ContextWrapper
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.launch
 
 /**
- * Android implementation of [com.louis.gautier.biometric.BiometricAuthenticator].
+ * Android implementation of [BiometricAuthenticator].
  *
  * This class handles biometric authentication on Android devices. It uses the AndroidX Biometric library
  * to display a biometric prompt and interact with the system's biometric hardware.

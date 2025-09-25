@@ -14,7 +14,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
-            implementation(projects.client.data.platform)
+            implementation(projects.client.core)
             implementation(projects.client.feature.biometric)
             implementation(projects.client.domain)
 

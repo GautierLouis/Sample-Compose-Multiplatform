@@ -7,7 +7,8 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.client.data.platform)
+            implementation(projects.client.core.logger)
+            implementation(projects.client.core.utils)
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
         }

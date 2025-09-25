@@ -1,6 +1,6 @@
 package com.louisgautier.preferences
 
-import com.louisgautier.platform.ContextWrapper
+import com.louisgautier.utils.context.ContextWrapper
 import java.io.File
 
 actual fun getDatastoreFilePath(contextWrapper: ContextWrapper): String =

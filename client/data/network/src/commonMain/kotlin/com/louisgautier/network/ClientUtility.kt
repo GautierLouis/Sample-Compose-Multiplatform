@@ -1,7 +1,7 @@
 package com.louisgautier.network
 
 import com.louisgautier.apicontracts.defaultJson
-import com.louisgautier.platform.AppLogger
+import com.louisgautier.logger.AppLogger
 import com.louisgautier.platform.platform
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
