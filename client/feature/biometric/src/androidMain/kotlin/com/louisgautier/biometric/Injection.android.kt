@@ -6,6 +6,5 @@ import org.koin.dsl.module
 
 actual val biometricModule: Module =
     module {
-        single { DefaultActivityResultObserver() }
         single { BiometricAuthenticator(get<ContextWrapper>(), get()) }
     }

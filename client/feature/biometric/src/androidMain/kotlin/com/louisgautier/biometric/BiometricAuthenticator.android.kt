@@ -14,6 +14,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.louisgautier.platform.ContextWrapper
+import com.louisgautier.platform.IntentActivityResultObserver
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.launch
 
@@ -38,7 +39,7 @@ import kotlinx.coroutines.launch
  */
 actual class BiometricAuthenticator(
     private val contextWrapper: ContextWrapper,
-    private val activityResultObserver: DefaultActivityResultObserver
+    private val activityResultObserver: IntentActivityResultObserver
 ) {
 
     private val biometricManager = BiometricManager.from(contextWrapper.context)

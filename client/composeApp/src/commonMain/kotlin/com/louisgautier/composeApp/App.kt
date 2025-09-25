@@ -25,43 +25,22 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.louisgautier.biometric.BiometricAuthenticator
-import kotlinx.serialization.Serializable
+import com.louisgautier.platform.PermissionHelper
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
 
-@Serializable
-sealed class Navigation {
-    @Serializable
-    data object Home : Navigation()
-
-    @Serializable
-    data object LoginByPhone : Navigation()
-
-    @Serializable
-    data class SendOTP(
-        val mail: String,
-    ) : Navigation()
-
-    @Serializable
-    data object FailAuth : Navigation()
-
-    @Serializable
-    data object Notes : Navigation()
-
-    @Serializable
-    data class Note(
-        val id: Long,
-    ) : Navigation()
-}
-
 @Composable
 fun App(
-    biometricAuthenticator: BiometricAuthenticator = koinInject()
+    permissionManager: PermissionHelper = koinInject()
 ) {
 
     LaunchedEffect(Unit) {
-        biometricAuthenticator.authenticate()
+        permissionManager.checkOrAskForPermission(
+            callback = {
+                println("permission state: $it")
+            }
+        )
+
     }
 
     MaterialTheme {
@@ -75,30 +54,6 @@ fun App(
                 Home { navigation ->
                     navController.navigate(navigation)
                 }
-            }
-
-//            composable<Navigation.LoginByPhone> {
-//                LoginByPhone { phone ->
-//                    navController.navigate(Navigation.SendOTP(phone))
-//                }
-//            }
-
-            composable<Navigation.SendOTP> {
-                VerifyPhoneOPT { navigation ->
-                    navController.navigate(navigation)
-                }
-            }
-
-            composable<Navigation.FailAuth> {
-                FailAuth { navigation ->
-                    navController.navigate(navigation)
-                }
-            }
-
-            composable<Navigation.Notes> {
-            }
-
-            composable<Navigation.Note> {
             }
         }
     }
@@ -137,7 +92,7 @@ fun Home(onNavigate: (Navigation) -> Unit = { }) {
                                     color = MaterialTheme.colorScheme.primary,
                                     shape = RoundedCornerShape(4.dp),
                                 ),
-                        onClick = { onNavigate(Navigation.SendOTP("")) },
+                        onClick = { },
                     ) {
                         Text("Login")
                     }
@@ -145,16 +100,4 @@ fun Home(onNavigate: (Navigation) -> Unit = { }) {
             }
         },
     )
-}
-
-@Composable
-fun LoginByPhone(onSend: (String) -> Unit) {
-}
-
-@Composable
-fun VerifyPhoneOPT(onNavigate: (Navigation) -> Unit) {
-}
-
-@Composable
-fun FailAuth(onNavigate: (Navigation) -> Unit) {
 }

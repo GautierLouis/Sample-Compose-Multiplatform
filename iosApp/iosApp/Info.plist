@@ -4,5 +4,11 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library for...</string>
+
+    <key>NSFaceIDUsageDescription</key>
+    <string>We need TouchId or FaceID to access this app</string>
+
 </dict>
 </plist>

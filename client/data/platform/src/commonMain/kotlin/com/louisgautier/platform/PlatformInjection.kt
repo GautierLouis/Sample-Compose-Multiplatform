@@ -6,6 +6,7 @@ import org.koin.dsl.module
 val platformModule =
     module {
         includes(contextModule)
+        single { PermissionHelper(get()) }
     }
 
 internal expect val contextModule: Module
