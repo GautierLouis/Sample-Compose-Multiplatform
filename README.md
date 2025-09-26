@@ -208,3 +208,8 @@ This section outlines planned improvements and potential areas for future develo
 
 *   **Continuous Integration/Continuous Deployment (CI/CD) with GitHub Actions:**
     *   Set up GitHub Actions workflows to automate the building, testing, and potentially deployment of the Android app, iOS app (if feasible via command-line tools), desktop app, and server application. This will ensure code quality and streamline the release process.
+
+* **Auto generation of Mermaid graph:**
+  *Make it reflect the current module dependency graph with a gradle task.
+
+* **Setup Linter:**
