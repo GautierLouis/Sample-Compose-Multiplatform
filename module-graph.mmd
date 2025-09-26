@@ -1,0 +1,53 @@
+flowchart-elk TD
+    subgraph "Platform-Specific Apps"
+        client["client"]
+        server["server"]
+    end
+    subgraph "App"
+        composeApp["composeApp"]
+    end
+    subgraph "Feature"
+        biometric[biometric]
+        gallery[gallery]
+        login[login]
+    end
+    subgraph "Data"
+        network[network]
+        database[database]
+        preferences[preferences]
+        platform[platform]
+    end
+    subgraph "Core"
+        utils[utils]
+        logger[logger]
+        permission[permission]
+    end
+    contract["api-contracts"]
+    domain["domain"]
+%%Dependencies
+    composeApp --> biometric
+    composeApp --> gallery
+    composeApp --> login
+    composeApp --> utils
+    composeApp --> logger
+    composeApp --> permission
+%%^can be merge as composeApp --> core ?
+    gallery --> utils
+    gallery --> logger
+    gallery --> permission
+%%^can be merge as gallery --> core ?
+    domain --> network
+    domain --> database
+    domain --> preferences
+    domain --> platform
+%%^can be merge as domain --> data ?
+    preferences --> utils
+    network --> logger
+    network --> platform
+    network --> contract
+    database --> logger
+    database --> utils
+    biometric --> utils
+    permission --> logger
+    permission --> utils
+
