@@ -25,21 +25,22 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.louisgautier.gallery.LoadLocalPictures
 import com.louisgautier.permission.PermissionHelper
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
 
 @Composable
 fun App(
-    permissionManager: PermissionHelper = koinInject()
+    permissionManager: PermissionHelper = koinInject(),
+    loadLocalPictures: LoadLocalPictures = koinInject(),
 ) {
 
     LaunchedEffect(Unit) {
-        permissionManager.checkOrAskForPermission(
-            callback = {
-                println("permission state: $it")
+        loadLocalPictures.loadPictures().take(5)
+            .forEach { item ->
+                println(item)
             }
-        )
 
     }
 

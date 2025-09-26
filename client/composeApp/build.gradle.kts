@@ -16,6 +16,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.client.core)
             implementation(projects.client.feature.biometric)
+            implementation(projects.client.feature.gallery)
             implementation(projects.client.domain)
 
             implementation(compose.runtime)
