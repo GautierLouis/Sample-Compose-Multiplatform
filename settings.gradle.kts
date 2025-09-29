@@ -56,3 +56,5 @@ include(":client:core")
 include(":client:core:logger")
 include(":client:core:utils")
 include(":client:core:permission")
+//Design-System
+include(":client:design-system")
