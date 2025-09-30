@@ -22,6 +22,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,46 +36,50 @@ import com.louisgautier.designsystem.theme.button.Button
 import com.louisgautier.designsystem.theme.button.ButtonType
 import com.louisgautier.designsystem.theme.button.ButtonVariant
 import org.jetbrains.compose.resources.getString
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = koinInject(),
+    viewModel: LoginViewModel = koinViewModel(),
     onSuccessfulLogin: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     val isMailValid by viewModel.emailCheckState.collectAsStateWithLifecycle()
+    val loginState by viewModel.loginState.collectAsStateWithLifecycle(LoginViewModel.LoginState.Idle)
 
-    var email by remember { mutableStateOf("louis.gautier@outlook.fr") }
-    var pwd by remember { mutableStateOf("test") }
-    var loginBtnLabel by remember { mutableStateOf("Login") }
-    var loginBtnEnabled = pwd.isNotBlank() && isMailValid
+    var email by rememberSaveable { mutableStateOf("louis.gautier@outlook.fr") }
+    var pwd by rememberSaveable { mutableStateOf("test") }
+
+    val isLoading = loginState is LoginViewModel.LoginState.Loading
+    val loginBtnLabel = if (isLoading) "Loading" else "Login"
+    val loginBtnEnabled = pwd.isNotBlank() && isMailValid && !isLoading
 
     //For Debug only (since email && pwd are pre-filled)
-    viewModel.checkEmail(email)
+    LaunchedEffect(Unit) {
+        if (email.isNotEmpty()) {
+            viewModel.checkEmail(email)
+        }
+    }
 
-    LaunchedEffect(key1 = email + pwd) {
-        viewModel.loginState.collect {
-            when (it) {
-                LoginViewModel.LoginState.Success -> {
-                    onSuccessfulLogin()
-                }
-
-                is LoginViewModel.LoginState.Error -> {
-                    snackbarHostState.showSnackbar(
-                        message = getString(it.key),
-                        duration = SnackbarDuration.Short
-                    )
-                    loginBtnLabel = "Login"
-                    loginBtnEnabled = pwd.isNotBlank() && isMailValid
-                }
-
-                LoginViewModel.LoginState.Loading -> {
-                    loginBtnLabel = "Loading"
-                    loginBtnEnabled = false
-                }
+    LaunchedEffect(loginState) {
+        when (val currentLoginState = loginState) {
+            LoginViewModel.LoginState.Success -> {
+                onSuccessfulLogin()
             }
+
+            is LoginViewModel.LoginState.Error -> {
+                snackbarHostState.showSnackbar(
+                    message = getString(currentLoginState.key),
+                    duration = SnackbarDuration.Short
+                )
+            }
+
+            LoginViewModel.LoginState.Loading -> {
+                // Button label and enabled state are already handled by derived vals
+            }
+
+            else -> {}
         }
     }
 
@@ -104,7 +109,7 @@ fun LoginScreen(
                         value = email,
                         onValueChange = {
                             email = it
-                            viewModel.checkEmail(email)
+                            viewModel.checkEmail(it)
                         },
                         label = { Text("E-Mail") },
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -128,7 +133,9 @@ fun LoginScreen(
                         type = ButtonType.PRIMARY,
                         enabled = loginBtnEnabled,
                         onClick = {
-                            viewModel.login(email, pwd)
+                            if (loginBtnEnabled) {
+                                viewModel.login(email, pwd)
+                            }
                         },
                     ) {
                         Text(modifier = Modifier.testTag("btnLabel"), text = loginBtnLabel)

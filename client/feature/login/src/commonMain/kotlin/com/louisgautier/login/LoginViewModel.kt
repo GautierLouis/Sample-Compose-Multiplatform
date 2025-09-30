@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.louisgautier.auth.AuthRepository
 import com.louisgautier.utils.AppErrorCode
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -15,6 +14,7 @@ class LoginViewModel(
 ) : ViewModel() {
 
     sealed class LoginState {
+        data object Idle : LoginState()
         data object Success : LoginState()
         data object Loading : LoginState()
         data class Error(val key: StringResource) : LoginState()
@@ -22,7 +22,7 @@ class LoginViewModel(
 
     private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$".toRegex()
 
-    var loginState = MutableSharedFlow<LoginState>()
+    var loginState = MutableStateFlow<LoginState>(LoginState.Idle)
         private set
 
     var emailCheckState = MutableStateFlow(false)

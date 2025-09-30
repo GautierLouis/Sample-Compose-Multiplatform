@@ -11,10 +11,8 @@ import androidx.fragment.app.FragmentActivity
 import com.louisgautier.utils.IntentActivityResultObserver
 import com.louisgautier.utils.PermissionActivityResultObserver
 import org.koin.android.ext.android.inject
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.compose.KoinApplication
-import org.koin.core.logger.Level
+import org.koin.compose.KoinMultiplatformApplication
+import org.koin.dsl.koinConfiguration
 
 class MainActivity : FragmentActivity() {
 
@@ -38,11 +36,11 @@ class MainActivity : FragmentActivity() {
         }
 
         setContent {
-            KoinApplication(application = {
-                androidLogger(Level.DEBUG)
-                androidContext(this@MainActivity)
-                modules(getAllModules())
-            }) {
+            KoinMultiplatformApplication(
+                config = koinConfiguration {
+                    modules(getAllModules())
+                }
+            ) {
                 intentActivityResultObserver.setLauncher(activityResultLauncher)
                 permissionActivityResultObserver.setLauncher(permissionLauncher)
                 App()

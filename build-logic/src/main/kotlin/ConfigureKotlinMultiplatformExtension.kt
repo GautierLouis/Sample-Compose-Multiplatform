@@ -29,7 +29,7 @@ internal fun Project.configureKotlinMultiplatform(
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ComposeApp$nameFormatted"
+            baseName = "ComposeApp"
             isStatic = true
         }
     }
