@@ -1,0 +1,6 @@
+<resources>
+    <string name="error_network">Sin conexión a Internet. Verifica tu red.</string>
+    <string name="error_server">Ocurrió un error en el servidor. Inténtalo más tarde.</string>
+    <string name="error_invalid_credentials">Correo o contraseña inválidos.</string>
+    <string name="error_unknown">Ocurrió un error desconocido.</string>
+</resources>

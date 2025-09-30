@@ -50,6 +50,7 @@ internal fun Project.configureKotlinMultiplatform(
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.koin.test)
+            implementation(libs.mokkery.coroutine)
         }
 
         androidMain.dependencies {

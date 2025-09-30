@@ -18,6 +18,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Button(
+    modifier: Modifier = Modifier,
     variant: ButtonVariant,
     type: ButtonType,
     enabled: Boolean,
@@ -28,7 +29,7 @@ fun Button(
     val family = type.getColorFamily()
 
     Button(
-        modifier = Modifier,
+        modifier = modifier,
         shape = RoundedCornerShape(AppSize.size4),
         onClick = { onClick() },
         enabled = enabled,

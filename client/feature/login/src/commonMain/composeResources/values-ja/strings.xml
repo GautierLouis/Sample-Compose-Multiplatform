@@ -1,0 +1,6 @@
+<resources>
+    <string name="error_network">インターネットに接続できません。ネットワークを確認してください。</string>
+    <string name="error_server">サーバーでエラーが発生しました。後でもう一度お試しください。</string>
+    <string name="error_invalid_credentials">メールアドレスまたはパスワードが正しくありません。</string>
+    <string name="error_unknown">不明なエラーが発生しました。</string>
+</resources>

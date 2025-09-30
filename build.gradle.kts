@@ -17,4 +17,5 @@ plugins {
 
     alias(libs.plugins.library.convention) apply false
     alias(libs.plugins.application.convention) apply false
+    alias(libs.plugins.compose.convention) apply false
 }

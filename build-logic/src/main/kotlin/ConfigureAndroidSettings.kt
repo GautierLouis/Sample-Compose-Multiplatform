@@ -9,6 +9,7 @@ internal fun CommonExtension<*, *, *, *, *, *>.applySharedAndroidSettings(projec
     compileSdk = project.libs.versions.android.compile.sdk.get().toInt()
     defaultConfig {
         minSdk = project.libs.versions.android.min.sdk.get().toInt()
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

@@ -50,6 +50,9 @@ androidx-biometeric = { module = "androidx.biometric:biometric", version.ref = "
 androidx-compose-m3 = { module = "androidx.compose.material3:material3", version.ref = "androix-compose-m3" }
 androidx-compose-m3-window-size = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "androix-compose-m3" }
 
+#Mockkery
+mokkery-coroutine = { module = "dev.mokkery:mokkery-coroutines", version.ref = "mokkery" }
+
 #Ktor
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
@@ -147,6 +150,7 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 #Convention Plugin
 android-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+compose-gradle = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -169,3 +173,4 @@ ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 #Convention Plugin
 library-convention = { id = "com.louisgautier.library.convention" }
 application-convention = { id = "com.louisgautier.application.convention" }
+compose-convention = { id = "com.louisgautier.compose.convention" }

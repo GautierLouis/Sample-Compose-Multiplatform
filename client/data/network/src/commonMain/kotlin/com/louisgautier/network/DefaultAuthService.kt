@@ -1,5 +1,6 @@
 package com.louisgautier.network
 
+import com.louisgautier.apicontracts.dto.AuthUserJson
 import com.louisgautier.apicontracts.dto.UserJson
 import com.louisgautier.apicontracts.dto.UserRefreshTokenJson
 import com.louisgautier.apicontracts.dto.UserTokenJson
@@ -24,7 +25,7 @@ internal class DefaultAuthService(
             }
         }
 
-    override suspend fun login(user: UserJson): Result<UserTokenJson> =
+    override suspend fun login(user: AuthUserJson): Result<UserTokenJson> =
         call {
             client.get(EndPoint.Login()) {
                 setBody(user)

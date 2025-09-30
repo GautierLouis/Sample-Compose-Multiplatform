@@ -1,0 +1,6 @@
+<resources>
+    <string name="error_network">Pas de connexion Internet. Vérifiez votre réseau.</string>
+    <string name="error_server">Une erreur serveur s'est produite. Réessayez plus tard.</string>
+    <string name="error_invalid_credentials">Email ou mot de passe invalide.</string>
+    <string name="error_unknown">Une erreur inconnue s'est produite.</string>
+</resources>

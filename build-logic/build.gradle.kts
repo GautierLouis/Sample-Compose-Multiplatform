@@ -14,6 +14,7 @@ dependencies {
     compileOnly(files(gradle.serviceOf<DependenciesAccessors>().classes.asFiles))
     compileOnly(libs.android.gradle.get())
     compileOnly(libs.kotlin.gradle.get())
+    implementation(libs.compose.gradle.get())
 }
 
 gradlePlugin {
@@ -25,6 +26,10 @@ gradlePlugin {
         register("kotlinMultiplatformLibrary") {
             id = libs.plugins.library.convention.get().pluginId
             implementationClass = "LibraryPlugin"
+        }
+        register("kotlinMultiplatformCompose") {
+            id = libs.plugins.compose.convention.get().pluginId
+            implementationClass = "ComposePlugin"
         }
     }
 }

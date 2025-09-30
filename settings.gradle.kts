@@ -45,11 +45,11 @@ include(":client:feature:login")
 include(":client:feature:gallery")
 //Domain
 include(":client:domain")
+include(":client:domain:auth")
 //Data
 include(":client:data")
 include(":client:data:network")
 include(":client:data:database")
-include(":client:data:platform")
 include(":client:data:preferences")
 //Core
 include(":client:core")

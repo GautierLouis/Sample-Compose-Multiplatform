@@ -6,6 +6,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(projects.client.domain.auth)
                 implementation(projects.client.data)
             }
         }

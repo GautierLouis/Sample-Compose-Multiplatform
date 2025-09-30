@@ -2,43 +2,22 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.application.convention)
-    alias(libs.plugins.compose.multiplatform)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.compose.hot.reload)
+    alias(libs.plugins.compose.convention)
 }
 
 kotlin {
     sourceSets {
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-        }
+
         commonMain.dependencies {
             implementation(projects.client.core)
             implementation(projects.client.feature.biometric)
             implementation(projects.client.feature.gallery)
-            implementation(projects.client.domain)
-
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.material3AdaptiveNavigationSuite)
-
-            implementation(libs.compose.lifecycle.viewmodel.compose)
-            implementation(libs.compose.lifecycle.runtime.compose)
-            implementation(libs.compose.navigation.compose)
-
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
-            implementation(libs.koin.compose.viewmodel.navigation)
+            implementation(projects.client.feature.login)
+            implementation(projects.client.designSystem)
+            implementation(projects.client.domain) // needed for Koin
         }
 
         jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
         }
 

@@ -1,6 +1,6 @@
 package com.louisgautier.sample.server
 
-import com.louisgautier.apicontracts.dto.RegisterUserJson
+import com.louisgautier.apicontracts.dto.AuthUserJson
 import com.louisgautier.apicontracts.dto.UserRefreshTokenJson
 import com.louisgautier.apicontracts.routing.EndPoint
 import com.louisgautier.sample.server.domain.AuthenticationRepository
@@ -90,7 +90,7 @@ private fun Routing.configureOpenRoutes() {
     }
 
     post<EndPoint.Register> {
-        val creds = call.receive<RegisterUserJson>()
+        val creds = call.receive<AuthUserJson>()
 
         authenticationRepository.registerWith(creds.email, creds.password).collect {
             it.onSuccess {
@@ -103,9 +103,9 @@ private fun Routing.configureOpenRoutes() {
     }
 
     post<EndPoint.Login> {
-        val creds = call.receive<RegisterUserJson>()
+        val creds = call.receive<AuthUserJson>()
 
-        authenticationRepository.registerWith(creds.email, creds.password).collect {
+        authenticationRepository.loginInWith(creds.email, creds.password).collect {
             it.onSuccess {
                 call.respond(HttpStatusCode.OK, it)
             }
