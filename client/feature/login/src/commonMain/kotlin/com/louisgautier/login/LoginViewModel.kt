@@ -35,9 +35,12 @@ class LoginViewModel(
         viewModelScope.launch {
             loginState.emit(LoginState.Loading)
             authRepository.login(email, password)
-                .onSuccess { loginState.emit(LoginState.Success) }
-                .onFailure {
-                    loginState.emit(LoginState.Error((it as AppErrorCode).toResourceString()))
+                .onSuccess {
+                    loginState.emit(LoginState.Success)
+                }
+                .onFailure { throwable ->
+                    val appCode = (throwable as? AppErrorCode) ?: AppErrorCode.UnknownError
+                    loginState.emit(LoginState.Error(appCode.toResourceString()))
                 }
         }
     }

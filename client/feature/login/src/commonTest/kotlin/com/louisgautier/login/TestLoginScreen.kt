@@ -1,92 +1,140 @@
 package com.louisgautier.login
 
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.ExperimentalTestApi
-import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.louisgautier.auth.AuthRepository
 import dev.mokkery.MockMode
+import dev.mokkery.annotations.DelicateMokkeryApi
 import dev.mokkery.coroutines.answering.Awaitable.Companion.delayed
 import dev.mokkery.coroutines.answering.awaits
 import dev.mokkery.everySuspend
 import dev.mokkery.matcher.any
 import dev.mokkery.mock
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.time.Duration.Companion.seconds
+import kotlin.test.assertTrue
+import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalTestApi::class)
+// Simple LifecycleOwner for testing
+class TestLifecycleOwner : LifecycleOwner {
+    private val registry = LifecycleRegistry(this)
+    override val lifecycle: Lifecycle
+        get() = registry
+
+    fun handleLifecycleEvent(event: Lifecycle.Event) {
+        registry.handleLifecycleEvent(event)
+    }
+}
+
+@OptIn(ExperimentalTestApi::class, ExperimentalCoroutinesApi::class)
 class TestLoginScreen {
 
     private val mockAuthRepository = mock<AuthRepository>(MockMode.autofill)
+    private val testLifecycleOwner = TestLifecycleOwner()
 
-    /*
-    Component to test
-     */
-    private fun SemanticsNodeInteractionsProvider.btnLabel() = onNodeWithTag("btnLabel")
-    private fun SemanticsNodeInteractionsProvider.btn() = onNodeWithTag("login")
-
-    @OptIn(ExperimentalTestApi::class)
-    @Test
-    fun testLogin() = runComposeUiTest {
-        val viewModel = LoginViewModel(mockAuthRepository)
-
-        everySuspend {
-            mockAuthRepository.login(any(), any())
-        } awaits delayed(by = 2.seconds) { Result.success(Unit) }
-
-        setContent {
-            LoginScreen(viewModel) { }
-        }
-
-        //Default state
-        btnLabel().assertTextEquals("Login")
-        btn().assertIsEnabled()
-
-        //Action
-        btn().performClick()
-
-        //Loading (temporary state ~2 seconds)
-        btnLabel().assertTextEquals("Loading")
-        btn().assertIsNotEnabled()
-
-        //Final state
-        btn().assertIsEnabled()
-        btnLabel().assertTextEquals("Login")
-
+    @BeforeTest
+    fun before() {
+        testLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        testLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
     }
 
-    @OptIn(ExperimentalTestApi::class)
+    @AfterTest
+    fun after() {
+        testLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    }
+
+    @OptIn(DelicateMokkeryApi::class, ExperimentalTime::class)
     @Test
-    fun testLogin2() = runComposeUiTest {
+    fun `check that the state is correctly update with a success`() = runComposeUiTest {
+
         val viewModel = LoginViewModel(mockAuthRepository)
 
         everySuspend {
             mockAuthRepository.login(any(), any())
-        } awaits delayed(by = 2.seconds) { Result.success(Unit) }
-
+        } awaits delayed { Result.success(Unit) }
 
         setContent {
-            LoginScreen(viewModel) {}
+            CompositionLocalProvider(LocalLifecycleOwner provides testLifecycleOwner) {
+                LoginScreen(viewModel) {
+                    assertTrue(true)
+                }
+            }
         }
 
         //Default state
-        btnLabel().assertTextEquals("Login")
-        btn().assertIsEnabled()
+        onNodeWithTag("loginBtn")
+            .assertIsEnabled()
+            .assertTextEquals("Login")
 
-        //Action
-        btn().performClick()
+        // perform action
+        onNodeWithTag("loginBtn").performClick()
 
-        //Loading (temporary state ~2 seconds)
-        btnLabel().assertTextEquals("Loading")
-        btn().assertIsNotEnabled()
+        onNodeWithTag("loginBtn")
+            .assertTextEquals("Loading")
+            .assertIsNotEnabled()
 
-        //Final state
-        btn().assertIsEnabled()
-        btnLabel().assertTextEquals("Login")
+        waitUntil("End of Loading state") {
+            runCatching {
+                onNodeWithTag("loginBtn")
+                    .assertIsEnabled()
+                    .assertTextEquals("Login")
+                true
+            }.getOrDefault(false)
+        }
+    }
 
+    @OptIn(DelicateMokkeryApi::class, ExperimentalTime::class)
+    @Test
+    fun `check that the state is correctly update with a failure`() = runComposeUiTest {
+
+        val viewModel = LoginViewModel(mockAuthRepository)
+
+        everySuspend {
+            mockAuthRepository.login(any(), any())
+        } awaits delayed { Result.failure(Exception()) }
+
+        setContent {
+            CompositionLocalProvider(LocalLifecycleOwner provides testLifecycleOwner) {
+                LoginScreen(viewModel) {
+                    assertTrue(false)
+                }
+            }
+        }
+
+        //Default state
+        onNodeWithTag("loginBtn")
+            .assertIsEnabled()
+            .assertTextEquals("Login")
+
+        // perform action
+        onNodeWithTag("loginBtn").performClick()
+
+        onNodeWithTag("loginBtn")
+            .assertTextEquals("Loading")
+            .assertIsNotEnabled()
+
+        waitUntil("End of Loading state") {
+            runCatching {
+                onNodeWithTag("loginBtn")
+                    .assertIsEnabled()
+                    .assertTextEquals("Login")
+                onNodeWithTag("snackbar")
+                    .isDisplayed()
+                true
+            }.getOrDefault(false)
+        }
     }
 }

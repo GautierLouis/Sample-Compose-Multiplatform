@@ -65,10 +65,12 @@ fun LoginScreen(
     LaunchedEffect(loginState) {
         when (val currentLoginState = loginState) {
             LoginViewModel.LoginState.Success -> {
+                println("Am I here ?")
                 onSuccessfulLogin()
             }
 
             is LoginViewModel.LoginState.Error -> {
+                println("And not here ?")
                 snackbarHostState.showSnackbar(
                     message = getString(currentLoginState.key),
                     duration = SnackbarDuration.Short
@@ -87,6 +89,7 @@ fun LoginScreen(
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState) { data ->
                 Snackbar(
+                    modifier = Modifier.testTag("snackbar"),
                     containerColor = AppTheme.colors.redFamily.fg,
                     contentColor = AppTheme.colors.redFamily.contrast,
                     snackbarData = data
@@ -128,7 +131,7 @@ fun LoginScreen(
                         modifier = Modifier.fillMaxWidth()
                             .fillMaxHeight()
                             .padding(top = 6.dp)
-                            .testTag("login"),
+                            .testTag("loginBtn"),
                         variant = ButtonVariant.SOLID,
                         type = ButtonType.PRIMARY,
                         enabled = loginBtnEnabled,
@@ -138,7 +141,7 @@ fun LoginScreen(
                             }
                         },
                     ) {
-                        Text(modifier = Modifier.testTag("btnLabel"), text = loginBtnLabel)
+                        Text(text = loginBtnLabel)
                     }
                 }
             }
