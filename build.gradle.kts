@@ -15,7 +15,6 @@ plugins {
     alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.android.lint) apply false
 
-    alias(libs.plugins.library.convention) apply false
-    alias(libs.plugins.application.convention) apply false
+    alias(libs.plugins.convention.plugin) apply false
     alias(libs.plugins.compose.convention) apply false
 }

@@ -1,7 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    alias(libs.plugins.application.convention)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.convention.plugin)
     alias(libs.plugins.compose.convention)
 }
 

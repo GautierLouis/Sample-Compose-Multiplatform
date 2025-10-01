@@ -19,17 +19,14 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("kotlinMultiplatformApplication") {
-            id = libs.plugins.application.convention.get().pluginId
-            implementationClass = "ApplicationPlugin"
-        }
-        register("kotlinMultiplatformLibrary") {
-            id = libs.plugins.library.convention.get().pluginId
-            implementationClass = "LibraryPlugin"
-        }
         register("kotlinMultiplatformCompose") {
             id = libs.plugins.compose.convention.get().pluginId
             implementationClass = "ComposePlugin"
+        }
+
+        register("kotlinMultiplatformConvention") {
+            id = libs.plugins.convention.plugin.get().pluginId
+            implementationClass = "ConventionPlugin"
         }
     }
 }
