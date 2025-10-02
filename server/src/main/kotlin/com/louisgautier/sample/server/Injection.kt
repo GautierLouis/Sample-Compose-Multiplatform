@@ -17,7 +17,7 @@ import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 
-fun Application.installInjection(envModule: Module) {
+fun Application.installModule(envModule: Module) {
     install(Koin) {
         slf4jLogger(Level.INFO)
         modules(listOf(envModule) + standardModules)

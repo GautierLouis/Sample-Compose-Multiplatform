@@ -1,7 +1,7 @@
 package com.louisgautier.composeApp
 
-import com.louisgauteir.core.coreModule
 import com.louisgautier.biometric.biometricModule
+import com.louisgautier.core.coreModule
 import com.louisgautier.domain.domainModule
 import com.louisgautier.gallery.galleryModule
 import com.louisgautier.login.loginModule

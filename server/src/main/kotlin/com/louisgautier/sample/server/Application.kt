@@ -15,7 +15,7 @@ fun Application.module(
     envModule: Module = buildEnvModule(this.environment)
 ) {
 
-    installInjection(envModule)
+    installModule(envModule)
     configureDatabase()
     configureServer()
     configureRouting()

@@ -1,4 +1,4 @@
-package com.louisgauteir.core
+package com.louisgautier.core
 
 import com.louisgautier.permission.permissionModule
 import com.louisgautier.utils.utilsModule
