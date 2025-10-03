@@ -2,6 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.services)
     alias(libs.plugins.convention.plugin)
     alias(libs.plugins.compose.convention)
 }
@@ -16,10 +17,17 @@ kotlin {
             implementation(projects.client.feature.login)
             implementation(projects.client.designSystem)
             implementation(projects.client.domain) // needed for Koin
+
+            implementation(projects.client.domain.notification)
         }
 
         jvmMain.dependencies {
             implementation(libs.kotlinx.coroutines.swing)
+        }
+
+        androidMain.dependencies {
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.analytics)
         }
 
         commonTest.dependencies {

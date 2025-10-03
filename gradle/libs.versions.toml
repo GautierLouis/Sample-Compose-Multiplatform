@@ -33,8 +33,10 @@ hikaricp = "7.0.2"
 ehcache = "3.11.1"
 prometheus = "1.15.4"
 compose-m3-adaptive = "1.2.0-alpha06"
-firebase = "9.1.1"
+firebase-admin = "9.1.1"
 supabase = "3.2.3"
+google-services = "4.4.3"
+firebase-bom = "34.3.0"
 runner = "1.7.0"
 core = "1.7.0"
 junit-version = "1.3.0"
@@ -118,6 +120,7 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -138,7 +141,11 @@ compose-lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 
 #Firebase
-firebase-auth = { module = "com.google.firebase:firebase-admin", version.ref = "firebase" }
+firebase-admin = { module = "com.google.firebase:firebase-admin", version.ref = "firebase-admin" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-config = { module = "com.google.firebase:firebase-config" }
+firebase-push-notification = { module = "com.google.firebase:firebase-inappmessaging-display" }
 
 #Supabase
 supabase-bom = { module = "io.github.jan-tennert.supabase:bom", version.ref = "supabase" }
@@ -149,6 +156,9 @@ supabase-auth-ui = { module = "io.github.jan-tennert.supabase:compose-auth-ui" }
 android-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 compose-gradle = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit-version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -163,6 +173,7 @@ androidx-room = { id = "androidx.room", version.ref = "room" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 
 #Server
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

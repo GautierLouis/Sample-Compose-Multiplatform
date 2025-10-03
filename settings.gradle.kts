@@ -46,6 +46,7 @@ include(":client:feature:gallery")
 //Domain
 include(":client:domain")
 include(":client:domain:auth")
+include(":client:domain:notification")
 //Data
 include(":client:data")
 include(":client:data:network")

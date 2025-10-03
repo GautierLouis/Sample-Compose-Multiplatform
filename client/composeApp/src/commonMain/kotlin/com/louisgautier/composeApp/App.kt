@@ -18,6 +18,7 @@ import com.louisgautier.designsystem.theme.button.ButtonType
 import com.louisgautier.designsystem.theme.button.ButtonVariant
 import com.louisgautier.gallery.LoadLocalPictures
 import com.louisgautier.login.LoginScreen
+import com.louisgautier.notification.FeatureFlagsStore
 import com.louisgautier.permission.PermissionHelper
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -29,15 +30,15 @@ import sample.client.composeapp.generated.resources.greeting
 fun App(
     permissionManager: PermissionHelper = koinInject(),
     loadLocalPictures: LoadLocalPictures = koinInject(),
+    flagStore: FeatureFlagsStore = koinInject(),
 ) {
 
     LaunchedEffect(Unit) {
-        loadLocalPictures.loadPictures().take(5)
-            .forEach { item ->
-                println(item)
-            }
-
+        flagStore.flags.collect { it ->
+            println("Got a new flag : ${it.testValue}")
+        }
     }
+
 
     MaterialTheme {
         val navController = rememberNavController()

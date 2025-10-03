@@ -65,7 +65,7 @@ dependencies {
     implementation(libs.postgresql)
     implementation(libs.hikaricp)
     implementation(libs.ehcache)
-    implementation(libs.firebase.auth)
+    implementation(libs.firebase.admin)
 
     implementation(project.dependencies.platform(libs.supabase.bom))
     implementation(libs.supabase.auth)
