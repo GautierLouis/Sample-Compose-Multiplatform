@@ -46,7 +46,6 @@ include(":client:feature:gallery")
 //Domain
 include(":client:domain")
 include(":client:domain:auth")
-include(":client:domain:notification")
 //Data
 include(":client:data")
 include(":client:data:network")
@@ -57,5 +56,6 @@ include(":client:core")
 include(":client:core:logger")
 include(":client:core:utils")
 include(":client:core:permission")
+include(":client:core:firebase")
 //Design-System
 include(":client:design-system")

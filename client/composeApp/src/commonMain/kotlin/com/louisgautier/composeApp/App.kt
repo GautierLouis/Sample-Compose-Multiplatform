@@ -16,9 +16,9 @@ import androidx.navigation.compose.rememberNavController
 import com.louisgautier.designsystem.theme.button.Button
 import com.louisgautier.designsystem.theme.button.ButtonType
 import com.louisgautier.designsystem.theme.button.ButtonVariant
+import com.louisgautier.firebase.remoteconfig.FeatureFlagsStore
 import com.louisgautier.gallery.LoadLocalPictures
 import com.louisgautier.login.LoginScreen
-import com.louisgautier.notification.FeatureFlagsStore
 import com.louisgautier.permission.PermissionHelper
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

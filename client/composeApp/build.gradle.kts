@@ -17,8 +17,6 @@ kotlin {
             implementation(projects.client.feature.login)
             implementation(projects.client.designSystem)
             implementation(projects.client.domain) // needed for Koin
-
-            implementation(projects.client.domain.notification)
         }
 
         jvmMain.dependencies {
