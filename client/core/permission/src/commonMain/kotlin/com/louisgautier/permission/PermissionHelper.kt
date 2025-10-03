@@ -1,5 +1,7 @@
 package com.louisgautier.permission
 
+import kotlinx.coroutines.CompletableDeferred
+
 /**
  * Helper class for managing permissions.
  *
@@ -11,30 +13,29 @@ class PermissionHelper(
     private val permissionsManager: PermissionsManager
 ) {
 
-    suspend fun checkOrAskForPermission(
-        callback: (PermissionResult) -> Unit
-    ) {
+    private val deferred: CompletableDeferred<PermissionResult> = CompletableDeferred()
+
+    suspend fun checkOrAskForPermission(): PermissionResult {
 
         val result = permissionsManager.isPermissionGranted(PermissionType.GALLERY)
-        return when (result) {
-            PermissionResult.GRANTED -> callback(PermissionResult.GRANTED)
-            PermissionResult.DENIED -> ask {
-                if (it == PermissionResult.GRANTED) {
-                    callback(PermissionResult.GRANTED)
-                } else callback(
-                    PermissionResult.DENIED
-                )
+        when (result) {
+            PermissionResult.GRANTED -> {
+                deferred.complete(PermissionResult.GRANTED)
             }
+
+            PermissionResult.DENIED -> ask()
         }
+
+        return deferred.await()
     }
 
-    private suspend fun ask(callback: (PermissionResult) -> Unit) {
+    private suspend fun ask() {
         permissionsManager.requestPermission(PermissionType.GALLERY, object : PermissionCallback {
             override fun onPermissionStatus(
                 permissionType: PermissionType,
                 status: PermissionResult
             ) {
-                callback(status)
+                deferred.complete(status)
             }
         })
     }

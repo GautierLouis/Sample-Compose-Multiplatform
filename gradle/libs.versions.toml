@@ -35,9 +35,8 @@ prometheus = "1.15.4"
 compose-m3-adaptive = "1.2.0-alpha06"
 firebase = "9.1.1"
 supabase = "3.2.3"
-runner = "1.7.0"
-core = "1.7.0"
-junit-version = "1.3.0"
+coil = "2.6.1"
+
 
 [libraries]
 #Junit
@@ -144,6 +143,9 @@ firebase-auth = { module = "com.google.firebase:firebase-admin", version.ref = "
 supabase-bom = { module = "io.github.jan-tennert.supabase:bom", version.ref = "supabase" }
 supabase-auth = { module = "io.github.jan-tennert.supabase:auth-kt" }
 supabase-auth-ui = { module = "io.github.jan-tennert.supabase:compose-auth-ui" }
+
+#Coil
+skydoves-coil = { module = "com.github.skydoves:landscapist-coil3", version.ref = "coil" }
 
 #Convention Plugin
 android-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
