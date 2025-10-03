@@ -5,10 +5,4 @@ headers = FirebaseRemoteConfig/FirebaseRemoteConfig.h \
           FirebaseRemoteConfig/FIRRemoteConfig.h \
           FirebaseCore/FIRApp.h
 
-compilerOpts = \
-  -I/Users/louisgautier/Library/Caches/Google/AndroidStudio2025.1.3/DerivedData/iosApp-astlunnpddnztediizhmabxapikb/SourcePackages/checkouts/firebase-ios-sdk/FirebaseRemoteConfig/Sources/Public \
-  -I/Users/louisgautier/Library/Caches/Google/AndroidStudio2025.1.3/DerivedData/iosApp-astlunnpddnztediizhmabxapikb/SourcePackages/checkouts/firebase-ios-sdk/FirebaseRemoteConfig/Sources/Public/FirebaseRemoteConfig \
-  -I/Users/louisgautier/Library/Caches/Google/AndroidStudio2025.1.3/DerivedData/iosApp-astlunnpddnztediizhmabxapikb/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCore/Sources/Public \
-  -I/Users/louisgautier/Library/Caches/Google/AndroidStudio2025.1.3/DerivedData/iosApp-astlunnpddnztediizhmabxapikb/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCore/Sources/Public/FirebaseCore
-
 linkerOpts = -framework FirebaseRemoteConfig -framework FirebaseCore -framework Foundation
