@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class AndroidFeatureFlagsStore(
+class DefaultFeatureFlagsStore(
     private val rcReader: RemoteConfigReader,
     private val rcClient: FirebaseController, // will be used to refresh
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),

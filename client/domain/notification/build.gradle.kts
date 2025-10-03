@@ -4,6 +4,17 @@ plugins {
 }
 
 kotlin {
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.compilations["main"].cinterops.create("firebase") {
+            definitionFile = file("src/nativeInterop/cinterop/firebase.def")
+        }
+    }
+
     sourceSets {
         androidMain.dependencies {
             implementation(projects.client.core.logger)
