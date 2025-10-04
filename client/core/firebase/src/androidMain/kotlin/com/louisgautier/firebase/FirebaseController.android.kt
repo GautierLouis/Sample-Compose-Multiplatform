@@ -1,15 +1,16 @@
 package com.louisgautier.firebase
 
 import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.louisgautier.logger.AppLogger
 import kotlinx.coroutines.suspendCancellableCoroutine
-import org.koin.core.component.KoinComponent
+import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-actual class FirebaseController : KoinComponent {
+actual class FirebaseController() {
 
     private val firebaseApp by lazy {
         FirebaseApp.getInstance()
@@ -17,6 +18,10 @@ actual class FirebaseController : KoinComponent {
 
     private val rc: FirebaseRemoteConfig by lazy {
         FirebaseRemoteConfig.getInstance(firebaseApp)
+    }
+
+    private val fm: FirebaseMessaging by lazy {
+        FirebaseMessaging.getInstance()
     }
 
     init {
@@ -27,6 +32,14 @@ actual class FirebaseController : KoinComponent {
         rc.setConfigSettingsAsync(settings).addOnFailureListener {
             AppLogger.e("Unable to set config for RemoteConfig : ${it.localizedMessage ?: it.message ?: it.stackTraceToString()}")
         }
+
+        fm.token
+            .addOnSuccessListener { token ->
+                AppLogger.d("FCM Token : $token")
+            }
+            .addOnFailureListener { exception ->
+                AppLogger.e("Unable to get FCM token : ${exception.localizedMessage ?: exception.message ?: exception.stackTraceToString()}")
+            }
 
     }
 
@@ -41,5 +54,18 @@ actual class FirebaseController : KoinComponent {
                 cont.resumeWithException(ex)
             }
     }
+
+    actual suspend fun getToken(): String {
+        return fm.token.await()
+    }
+
+    actual fun subscribeToTopic(topic: String) {
+        fm.subscribeToTopic(topic)
+    }
+
+    actual fun unsubscribeFromTopic(topic: String) {
+        fm.unsubscribeFromTopic(topic)
+    }
+
 }
 

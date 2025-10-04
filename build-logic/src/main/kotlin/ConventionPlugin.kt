@@ -46,11 +46,6 @@ class ConventionPlugin : Plugin<Project> {
         ).forEach { iosTarget ->
             sourceSets.findByName(iosTarget.name)
                 ?.kotlin?.srcDir("build/generated/ksp/$iosTarget/kotlin")
-
-            iosTarget.binaries.framework {
-                baseName = "ComposeApp"
-                isStatic = true
-            }
         }
 
         jvm()

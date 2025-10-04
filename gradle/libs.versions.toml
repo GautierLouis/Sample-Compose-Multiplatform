@@ -145,7 +145,7 @@ firebase-admin = { module = "com.google.firebase:firebase-admin", version.ref = 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-config = { module = "com.google.firebase:firebase-config" }
-firebase-push-notification = { module = "com.google.firebase:firebase-inappmessaging-display" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
 
 #Supabase
 supabase-bom = { module = "io.github.jan-tennert.supabase:bom", version.ref = "supabase" }

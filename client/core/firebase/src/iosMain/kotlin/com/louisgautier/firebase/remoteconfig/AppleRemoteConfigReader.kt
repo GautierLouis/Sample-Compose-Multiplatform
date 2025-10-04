@@ -1,7 +1,9 @@
 package com.louisgautier.firebase.remoteconfig
 
 import firebase.FIRRemoteConfig
+import kotlinx.cinterop.ExperimentalForeignApi
 
+@OptIn(ExperimentalForeignApi::class)
 class AppleRemoteConfigReader(
     private val rc: FIRRemoteConfig = FIRRemoteConfig.Companion.remoteConfig()
 ) : RemoteConfigReader {

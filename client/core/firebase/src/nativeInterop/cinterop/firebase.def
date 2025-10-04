@@ -3,6 +3,7 @@ language = Objective-C
 
 headers = FirebaseRemoteConfig/FirebaseRemoteConfig.h \
           FirebaseRemoteConfig/FIRRemoteConfig.h \
-          FirebaseCore/FIRApp.h
+          FirebaseCore/FIRApp.h \
+          FirebaseMessaging/FIRMessaging.h
 
-linkerOpts = -framework FirebaseRemoteConfig -framework FirebaseCore -framework Foundation
+linkerOpts = -framework FirebaseRemoteConfig -framework FirebaseCore -framework FirebaseMessaging -framework Foundation

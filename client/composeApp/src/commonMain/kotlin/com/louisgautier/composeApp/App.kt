@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.louisgautier.designsystem.theme.button.Button
 import com.louisgautier.designsystem.theme.button.ButtonType
 import com.louisgautier.designsystem.theme.button.ButtonVariant
+import com.louisgautier.firebase.notification.PushNotificationManager
 import com.louisgautier.firebase.remoteconfig.FeatureFlagsStore
 import com.louisgautier.gallery.LoadLocalPictures
 import com.louisgautier.login.LoginScreen
@@ -31,12 +32,11 @@ fun App(
     permissionManager: PermissionHelper = koinInject(),
     loadLocalPictures: LoadLocalPictures = koinInject(),
     flagStore: FeatureFlagsStore = koinInject(),
+    notificationManager: PushNotificationManager = koinInject()
 ) {
 
     LaunchedEffect(Unit) {
-        flagStore.flags.collect { it ->
-            println("Got a new flag : ${it.testValue}")
-        }
+
     }
 
 

@@ -10,7 +10,7 @@ kotlin {
     val localProperties = Properties().apply {
         load(FileInputStream(File(rootProject.rootDir, "firebase.properties")))
     }
-    val firebaseSdkPath: String = localProperties.getProperty("FIREBASE_SDK_PATH").toString()
+    val firebaseSdkPath: String = localProperties.getProperty("FIREBASE_SDK").toString()
 
     listOf(
         iosX64(),
@@ -25,19 +25,26 @@ kotlin {
                 "-I${firebaseSdkPath}/FirebaseRemoteConfig/Sources/Public",
                 "-I${firebaseSdkPath}/FirebaseRemoteConfig/Sources/Public/FirebaseRemoteConfig",
                 "-I${firebaseSdkPath}/FirebaseCore/Sources/Public",
-                "-I${firebaseSdkPath}/FirebaseCore/Sources/Public/FirebaseCore"
+                "-I${firebaseSdkPath}/FirebaseCore/Sources/Public/FirebaseCore",
+                "-I${firebaseSdkPath}/FirebaseMessaging/Sources/Public",
+                "-I${firebaseSdkPath}/FirebaseMessaging/Sources/Public/FirebaseMessaging"
             )
         }
     }
 
     sourceSets {
-        androidMain.dependencies {
+        commonMain.dependencies {
             implementation(projects.client.core.logger)
             implementation(projects.client.core.utils)
+        }
+
+        androidMain.dependencies {
+            implementation(projects.client.core.permission)
 
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.config)
+            implementation(libs.firebase.messaging)
 
             implementation(libs.kotlinx.coroutines.play.services)
         }
