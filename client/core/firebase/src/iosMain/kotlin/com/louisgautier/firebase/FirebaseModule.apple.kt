@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 @OptIn(ExperimentalForeignApi::class)
 actual val firebasePlatformModule = module {
-    single { FirebaseController() }
+    single { FirebaseController().also { it.init() } }
     single { AppleRemoteConfigReader() } bind RemoteConfigReader::class
     single { PushNotificationManager() }
 }

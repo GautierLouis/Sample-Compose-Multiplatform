@@ -1,6 +1,7 @@
 package com.louisgautier.firebase
 
 import com.louisgautier.logger.AppLogger
+import com.louisgautier.utils.context.ContextWrapper
 import firebase.FIRMessaging
 import firebase.FIRMessagingDelegateProtocol
 import firebase.FIRRemoteConfig
@@ -19,7 +20,7 @@ actual class FirebaseController {
     private val fm: FIRMessaging
         get() = FIRMessaging.messaging()
 
-    init {
+    actual fun init(contextWrapper: ContextWrapper?) {
         val settings = FIRRemoteConfigSettings().apply {
             minimumFetchInterval = DEFAULT_MIN_FETCH_INTERVAL.toDouble()
         }

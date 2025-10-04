@@ -6,6 +6,18 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let pushManager = PushNotificationManager()
 
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: { _, _ in }
+        )
+
+        application.registerForRemoteNotifications()
+
+        return true
+    }
+
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         let dict = userInfo as NSDictionary
         let title = dict["title"] as? String

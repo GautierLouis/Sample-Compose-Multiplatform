@@ -18,6 +18,7 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
             export(projects.client.core.firebase)
+            binaryOptions["bundleId"] = "com.louisgautier.composeApp"
         }
     }
 

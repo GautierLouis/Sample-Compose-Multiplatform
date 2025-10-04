@@ -7,7 +7,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 actual val firebasePlatformModule = module {
-    single { FirebaseController() }
+    single { FirebaseController().also { it.init(get()) } }
     single { AndroidRemoteConfigReader() } bind RemoteConfigReader::class
     single { PushNotificationManager(get()) }
 }

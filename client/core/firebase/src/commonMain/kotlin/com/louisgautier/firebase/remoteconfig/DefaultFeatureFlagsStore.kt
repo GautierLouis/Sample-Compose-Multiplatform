@@ -9,11 +9,11 @@ import kotlinx.coroutines.launch
 
 class DefaultFeatureFlagsStore(
     private val rcReader: RemoteConfigReader,
-    private val rcClient: FirebaseController, // will be used to refresh
+    private val rcClient: FirebaseController,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
 ) : FeatureFlagsStore {
 
-    private val _flags = MutableStateFlow(FeatureFlags()) // initial safe defaults
+    private val _flags = MutableStateFlow(FeatureFlags())
     override val flags: StateFlow<FeatureFlags> = _flags
 
     init {
@@ -34,7 +34,6 @@ class DefaultFeatureFlagsStore(
             return false
         }
 
-        // read values from rcReader and update state
         val updated = FeatureFlags(
             testValue = rcReader.getString(FeatureFlagsKeys.TEST_VALUE),
         )

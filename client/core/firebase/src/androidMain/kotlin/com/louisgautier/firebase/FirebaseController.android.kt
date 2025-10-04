@@ -5,12 +5,13 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.louisgautier.logger.AppLogger
+import com.louisgautier.utils.context.ContextWrapper
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-actual class FirebaseController() {
+actual class FirebaseController {
 
     private val firebaseApp by lazy {
         FirebaseApp.getInstance()
@@ -24,7 +25,10 @@ actual class FirebaseController() {
         FirebaseMessaging.getInstance()
     }
 
-    init {
+    actual fun init(contextWrapper: ContextWrapper?) {
+
+        FirebaseApp.initializeApp(contextWrapper!!.context)
+
         val settings = FirebaseRemoteConfigSettings.Builder()
             .setMinimumFetchIntervalInSeconds(DEFAULT_MIN_FETCH_INTERVAL)
             .build()

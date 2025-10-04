@@ -288,7 +288,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
-				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID/Touch ID to enhance the security of your app and protect your personal information.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need TouchId or FaceID to access this app";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library for...";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -381,7 +382,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
-				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID/Touch ID to enhance the security of your app and protect your personal information.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need TouchId or FaceID to access this app";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library for...";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

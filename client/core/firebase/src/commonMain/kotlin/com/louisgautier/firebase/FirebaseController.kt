@@ -1,7 +1,10 @@
 package com.louisgautier.firebase
 
+import com.louisgautier.utils.context.ContextWrapper
+
 expect class FirebaseController {
 
+    fun init(contextWrapper: ContextWrapper? = null)
     /**
      * RemoteConfig
      * Fetch remote values and immediately activate them.
